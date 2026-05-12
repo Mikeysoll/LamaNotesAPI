@@ -1,3 +1,3 @@
 api:
-  base-url: http://localhost:8080
+  base-url: https://dev-castapi.ru/api/app/notes
   project-token: VFsQEvgwiDYwG_9B1KaZAOph4YzrwcmUFnEku2KOJDWmoOtdYELsbAncUwCsVfkg

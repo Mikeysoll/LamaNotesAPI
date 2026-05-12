@@ -7,9 +7,25 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import ru.lama.group.test.notes.client.TestApiClient
+import java.security.SecureRandom
+import java.security.cert.X509Certificate
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLContext
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
 
 @Configuration
 open class NoteClientConfig {
+
+    companion object {
+        private val SSL_CONTEXT = SSLContext.getInstance("TLS").apply {
+            this.init(null, arrayOf<TrustManager>(object : X509TrustManager {
+                override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
+                override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
+                override fun getAcceptedIssuers(): Array<X509Certificate> = emptyArray()
+            }), SecureRandom())
+        }
+    }
 
     @Value("\${api.base-url}")
     private lateinit var baseUrl: String
@@ -20,13 +36,14 @@ open class NoteClientConfig {
     @Bean
     open fun testApiClient(): TestApiClient {
         return feign.Feign.builder()
-            .client(feign.Client.Default(null, null))
+            .client(feign.Client.Default(SSL_CONTEXT.socketFactory, HostnameVerifier { _, _ -> true }))
             .requestInterceptor { requestTemplate ->
                 requestTemplate.header("X-Project-Token", projectToken)
             }
             .logger(Slf4jLogger())
             .logLevel(Logger.Level.BASIC)
             .retryer(Retryer.NEVER_RETRY)
+            .options(feign.Request.Options(5000, 5000))
             .target(TestApiClient::class.java, baseUrl)
     }
 }
