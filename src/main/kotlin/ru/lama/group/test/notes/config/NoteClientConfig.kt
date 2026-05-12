@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration
 import ru.lama.group.test.notes.client.TestApiClient
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
-import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
@@ -35,8 +34,12 @@ open class NoteClientConfig {
 
     @Bean
     open fun testApiClient(): TestApiClient {
+        return buildClient(TestApiClient::class.java)
+    }
+
+    private fun <T> buildClient(tClass: Class<T>): T {
         return feign.Feign.builder()
-            .client(feign.Client.Default(SSL_CONTEXT.socketFactory, HostnameVerifier { _, _ -> true }))
+            .client(feign.Client.Default(SSL_CONTEXT.socketFactory) { _, _ -> true })
             .requestInterceptor { requestTemplate ->
                 requestTemplate.header("X-Project-Token", projectToken)
             }
@@ -44,6 +47,6 @@ open class NoteClientConfig {
             .logLevel(Logger.Level.BASIC)
             .retryer(Retryer.NEVER_RETRY)
             .options(feign.Request.Options(5000, 5000))
-            .target(TestApiClient::class.java, baseUrl)
+            .target(tClass, baseUrl)
     }
 }
