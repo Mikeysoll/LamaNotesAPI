@@ -1,0 +1,7 @@
+api:
+  base-url: http://localhost:8080
+
+spring:
+  cloud:
+    compatibility-verifier:
+      enabled: false
