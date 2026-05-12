@@ -14,10 +14,16 @@ open class NoteClientConfig {
     @Value("\${api.base-url}")
     private lateinit var baseUrl: String
 
+    @Value("\${api.project-token}")
+    private lateinit var projectToken: String
+
     @Bean
     open fun testApiClient(): TestApiClient {
         return feign.Feign.builder()
             .client(feign.Client.Default(null, null))
+            .requestInterceptor { requestTemplate ->
+                requestTemplate.header("X-Project-Token", projectToken)
+            }
             .logger(Slf4jLogger())
             .logLevel(Logger.Level.BASIC)
             .retryer(Retryer.NEVER_RETRY)
