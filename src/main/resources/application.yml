@@ -1,3 +1,8 @@
 api:
   base-url: https://dev-castapi.ru/api/app/notes
   project-token: VFsQEvgwiDYwG_9B1KaZAOph4YzrwcmUFnEku2KOJDWmoOtdYELsbAncUwCsVfkg
+
+logging:
+  level:
+    feign: DEBUG
+    ru.lama.group.test.notes.client: DEBUG

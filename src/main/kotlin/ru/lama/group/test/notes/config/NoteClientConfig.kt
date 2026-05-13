@@ -2,11 +2,12 @@ package ru.lama.group.test.notes.config
 
 import feign.Logger
 import feign.Retryer
-import feign.slf4j.Slf4jLogger
+import feign.jackson.JacksonDecoder
+import feign.jackson.JacksonEncoder
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import ru.lama.group.test.notes.client.TestApiClient
+import ru.lama.group.test.notes.client.UserApiClient
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
@@ -33,18 +34,21 @@ open class NoteClientConfig {
     private lateinit var projectToken: String
 
     @Bean
-    open fun testApiClient(): TestApiClient {
-        return buildClient(TestApiClient::class.java)
+    open fun testApiClient(): UserApiClient {
+        return buildClient(UserApiClient::class.java)
     }
 
     private fun <T> buildClient(tClass: Class<T>): T {
         return feign.Feign.builder()
             .client(feign.Client.Default(SSL_CONTEXT.socketFactory) { _, _ -> true })
+            .encoder(JacksonEncoder())
+            .decoder(JacksonDecoder())
             .requestInterceptor { requestTemplate ->
                 requestTemplate.header("X-Project-Token", projectToken)
+                requestTemplate.header("content-type", "application/json")
             }
-            .logger(Slf4jLogger())
-            .logLevel(Logger.Level.BASIC)
+            .logger(MinimalFeignLogger())
+            .logLevel(Logger.Level.FULL)
             .retryer(Retryer.NEVER_RETRY)
             .options(feign.Request.Options(5000, 5000))
             .target(tClass, baseUrl)
