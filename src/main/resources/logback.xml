@@ -1,11 +1,17 @@
 <configuration>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%level: %msg%n</pattern>
+            <pattern>%d{HH:mm:ss} %-5level %logger - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <logger name="feign.Logger" level="DEBUG" additivity="false">
+    <!-- Логи Rest Assured -->
+    <logger name="io.restassured" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- HTTP wire logs (если включатся) -->
+    <logger name="org.apache.http" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>
 
