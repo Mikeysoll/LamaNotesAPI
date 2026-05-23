@@ -20,14 +20,15 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("io.github.openfeign:feign-core:13.3")
-    implementation("io.github.openfeign:feign-slf4j:13.3")
-    implementation("io.github.openfeign:feign-jackson:13.5")
-    
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation(kotlin("test"))
 
-    //allure
+    // RestAssured
+    testImplementation("io.rest-assured:rest-assured:5.5.0")
+    testImplementation("io.rest-assured:json-path:5.5.0")
+
+    // Allure
     testImplementation("io.qameta.allure:allure-junit5:2.34.0")
 }
 
