@@ -1,7 +1,7 @@
 package ru.lama.group.test.notes
 
 import ru.lama.group.test.notes.api.rq.CreateUserRq
-import java.util.*
+import java.util.UUID
 
 object UserRequestBuilder {
 

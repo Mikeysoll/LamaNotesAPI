@@ -1,7 +1,5 @@
 plugins {
     kotlin("jvm") version "2.3.0"
-    id("org.springframework.boot") version "3.4.5"
-    id("io.spring.dependency-management") version "1.1.7"
 }
 
 group = "ru.lama.group.test"
@@ -18,20 +16,16 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter")
+    // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    testImplementation(kotlin("test"))
 
     // ===== REST ASSURED =====
     testImplementation("io.rest-assured:rest-assured:5.5.0")
     testImplementation("io.rest-assured:json-path:5.5.0")
 
-    // ===== JSON SERIALIZATION (КРИТИЧНО) =====
-    testImplementation("com.fasterxml.jackson.core:jackson-databind:2.17.2")
+    // ===== JSON SERIALIZATION =====
     testImplementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.2")
-
-    // ===== TESTS =====
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation(kotlin("test"))
 
     // ===== ALLURE =====
     testImplementation("io.qameta.allure:allure-junit5:2.34.0")
@@ -39,4 +33,7 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
