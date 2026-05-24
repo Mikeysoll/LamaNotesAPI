@@ -1,5 +1,6 @@
 package ru.lama.group.test.notes.api.user
 
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -30,6 +31,10 @@ class NoteTests: TestBase() {
         )
 
         noteApiClient.createNote(request)
+        val notes = noteApiClient.getNotes()
+
+        val exists = notes.any { it.title == request.title }
+        assertTrue(exists)
 
     }
 
@@ -45,7 +50,10 @@ class NoteTests: TestBase() {
         )
 
         noteApiClient.createNote(request)
+        val notes = noteApiClient.getNotes()
 
+        val exists = notes.any { it.title == request.title }
+        assertTrue(exists)
     }
 
     @DisplayName("Создание заметки типа WISH_LIST")
@@ -60,6 +68,9 @@ class NoteTests: TestBase() {
         )
 
         noteApiClient.createNote(request)
+        val notes = noteApiClient.getNotes()
 
+        val exists = notes.any { it.title == request.title }
+        assertTrue(exists)
     }
 }
