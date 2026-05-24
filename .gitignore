@@ -15,7 +15,7 @@ out/
 
 ### Kotlin ###
 .kotlin
-.application.yml
+application.yml
 
 ### Eclipse ###
 .apt_generated
