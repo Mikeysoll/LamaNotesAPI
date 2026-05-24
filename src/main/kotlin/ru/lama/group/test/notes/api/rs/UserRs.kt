@@ -1,6 +1,6 @@
 package ru.lama.group.test.notes.api.rs
 
-data class CreateUserRs(
+data class UserRs(
     val id: String,
     val createdAt: String,
     val login: String,
