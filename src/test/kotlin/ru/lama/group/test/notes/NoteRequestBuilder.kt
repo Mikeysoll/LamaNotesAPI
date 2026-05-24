@@ -1,6 +1,6 @@
 package ru.lama.group.test.notes
 
-import ru.lama.group.test.notes.api.rq.CreateNoteRq
+import ru.lama.group.test.notes.api.rq.NoteRq
 import java.util.*
 
 object NoteRequestBuilder {
@@ -14,8 +14,8 @@ object NoteRequestBuilder {
         type: String = types.random(),
         folderId: String? = null,
         color: String = colors.random(),
-    ): CreateNoteRq {
-        return CreateNoteRq(
+    ): NoteRq {
+        return NoteRq(
             title = title,
             content = content,
             color = color,

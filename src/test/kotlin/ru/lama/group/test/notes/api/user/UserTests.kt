@@ -1,6 +1,7 @@
 package ru.lama.group.test.notes.api.user
 
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import ru.lama.group.test.notes.UserRequestBuilder
@@ -19,6 +20,6 @@ class UserTests {
         val request = UserRequestBuilder.createUserRq()
         val response = userSteps.createUser(request)
 
-        assertEquals(204, response.statusCode())
+        assertEquals(204, response.statusCode )
     }
 }

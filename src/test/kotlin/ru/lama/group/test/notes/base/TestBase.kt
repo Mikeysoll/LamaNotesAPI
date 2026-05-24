@@ -1,32 +1,24 @@
-package ru.lama.group.test.notes.api.user
+package ru.lama.group.test.notes.base
 
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.BeforeEach
 import ru.lama.group.test.notes.UserRequestBuilder
 import ru.lama.group.test.notes.client.AuthApiClient
 import ru.lama.group.test.notes.client.UserApiClient
 import ru.lama.group.test.notes.context.Context
 import ru.lama.group.test.notes.steps.AuthSteps
 import ru.lama.group.test.notes.steps.UserSteps
-import kotlin.test.assertTrue
 
-class AuthTests {
+open class TestBase {
 
-    private val context = Context()
+    protected val context = Context()
     private val authSteps = AuthSteps(AuthApiClient(context), context)
     private val userSteps = UserSteps(UserApiClient(), context)
 
-
-    @DisplayName("Аутентификация и получение токена")
-    @Test
-    fun auth() {
+    @BeforeEach
+    fun setUp() {
         val request = UserRequestBuilder.createUserRq()
         userSteps.createUser(request)
-
-        val response = authSteps.auth()
-        context.token = response.token
-
-        assertTrue { response.token.isNotEmpty() }
+        authSteps.auth()
     }
 
 }
