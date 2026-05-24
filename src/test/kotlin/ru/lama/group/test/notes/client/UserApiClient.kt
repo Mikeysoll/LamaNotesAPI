@@ -10,7 +10,12 @@ class UserApiClient {
     fun addUser(request: CreateUserRq): Response {
         return given()
             .spec(baseRequestSpec())
+            .log().all()
             .body(request)
             .post("/user")
+            .then()
+            .log().all()
+            .extract()
+            .response()
     }
 }
