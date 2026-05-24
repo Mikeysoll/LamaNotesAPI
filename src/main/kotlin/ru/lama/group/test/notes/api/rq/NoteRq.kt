@@ -1,6 +1,6 @@
 package ru.lama.group.test.notes.api.rq
 
-data class CreateNoteRq(
+data class NoteRq(
     val title: String,
     val content: String,
     val color: String,

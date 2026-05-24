@@ -4,11 +4,12 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import ru.lama.group.test.notes.UserRequestBuilder
 import ru.lama.group.test.notes.client.UserApiClient
+import ru.lama.group.test.notes.context.Context
 import ru.lama.group.test.notes.steps.UserSteps
 
 class UserTests {
-
-    private val userSteps = UserSteps(UserApiClient())
+    private val context = Context()
+    private val userSteps = UserSteps(UserApiClient(), context)
 
     @Test
     fun `create user`() {

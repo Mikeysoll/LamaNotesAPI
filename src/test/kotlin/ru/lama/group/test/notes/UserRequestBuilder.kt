@@ -1,6 +1,6 @@
 package ru.lama.group.test.notes
 
-import ru.lama.group.test.notes.api.rq.CreateUserRq
+import ru.lama.group.test.notes.api.rq.UserRq
 import java.util.UUID
 
 object UserRequestBuilder {
@@ -9,8 +9,8 @@ object UserRequestBuilder {
         login: String = "ATestLogin" + UUID.randomUUID().toString().replace("-", ""),
         psw: String = "ATestPsw" + UUID.randomUUID().toString().replace("-", ""),
         name: String = "ATestName" + UUID.randomUUID().toString().replace("-", "")
-    ): CreateUserRq {
-        return CreateUserRq(
+    ): UserRq {
+        return UserRq(
             login = login,
             psw = psw,
             name = name
