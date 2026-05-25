@@ -17,6 +17,7 @@ class UserTests {
     private val context = Context()
     private val userSteps = UserSteps(UserApiClient(context), context)
     private val authSteps = AuthSteps(AuthApiClient(context), context)
+    private val authApiClient = AuthApiClient(context)
 
     @DisplayName("Создание пользователя")
     @Test
@@ -52,7 +53,11 @@ class UserTests {
 
         val resetPasswordRq = ResetPasswordRq(context.psw, newPsw)
         val response = userSteps.resetPassword(resetPasswordRq)
+
+        authApiClient.authError()
         context.psw = newPsw
+        authSteps.auth()
+
 
         assertEquals(204 , response.statusCode())
 
