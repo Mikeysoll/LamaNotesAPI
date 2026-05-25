@@ -7,11 +7,13 @@ import org.junit.jupiter.api.Test
 import ru.lama.group.test.notes.api.rq.NoteRq
 import ru.lama.group.test.notes.base.TestBase
 import ru.lama.group.test.notes.client.NoteApiClient
+import ru.lama.group.test.notes.steps.NoteSteps
 import java.util.*
 
 class NoteTests : TestBase() {
 
     private val noteApiClient = NoteApiClient(context)
+    private val noteSteps = NoteSteps(noteApiClient)
 
     @DisplayName("Создание заметки типа NOTE")
     @Test
@@ -24,7 +26,10 @@ class NoteTests : TestBase() {
             type = "NOTE"
         )
 
-        val notes = noteApiClient.createNote(request)
+        noteSteps.createNote(request)
+        val notes = noteSteps.getNote()
+        val exists = notes.any { it.title == request.title }
+        assertTrue(exists)
 
         assertThat(notes.title == request.title)
     }
@@ -40,8 +45,8 @@ class NoteTests : TestBase() {
             type = "LIST"
         )
 
-        noteApiClient.createNote(request)
-        val notes = noteApiClient.getNotes()
+        noteSteps.createNote(request)
+        val notes = noteApiClient.getNote()
 
         val exists = notes.any { it.title == request.title }
         assertTrue(exists)
@@ -58,8 +63,8 @@ class NoteTests : TestBase() {
             type = "WISH_LIST"
         )
 
-        noteApiClient.createNote(request)
-        val notes = noteApiClient.getNotes()
+        noteSteps.createNote(request)
+        val notes = noteApiClient.getNote()
 
         val exists = notes.any { it.title == request.title }
         assertTrue(exists)

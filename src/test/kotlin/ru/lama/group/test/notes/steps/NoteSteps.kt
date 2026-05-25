@@ -15,8 +15,8 @@ class NoteSteps(
     }
 
     @Step("Отправка запроса GET /note")
-    fun getNote(noteRq: NoteRq): List<NoteRs> {
-        return noteApiClient.getNotes()
+    fun getNote(): List<NoteRs> {
+        return noteApiClient.getNote()
     }
 
 }
