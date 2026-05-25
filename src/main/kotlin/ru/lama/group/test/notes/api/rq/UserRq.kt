@@ -5,3 +5,4 @@ data class UserRq(
     val psw: String,
     val name: String
 )
+
