@@ -1,21 +1,15 @@
 package ru.lama.group.test.notes.api.user
 
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import ru.lama.group.test.notes.UserRequestBuilder
 import ru.lama.group.test.notes.api.rq.NoteRq
 import ru.lama.group.test.notes.base.TestBase
-import ru.lama.group.test.notes.client.AuthApiClient
 import ru.lama.group.test.notes.client.NoteApiClient
-import ru.lama.group.test.notes.client.UserApiClient
-import ru.lama.group.test.notes.context.Context
-import ru.lama.group.test.notes.steps.AuthSteps
-import ru.lama.group.test.notes.steps.UserSteps
 import java.util.*
 
-class NoteTests: TestBase() {
+class NoteTests : TestBase() {
 
     private val noteApiClient = NoteApiClient(context)
 
@@ -30,12 +24,9 @@ class NoteTests: TestBase() {
             type = "NOTE"
         )
 
-        noteApiClient.createNote(request)
-        val notes = noteApiClient.getNotes()
+        val notes = noteApiClient.createNote(request)
 
-        val exists = notes.any { it.title == request.title }
-        assertTrue(exists)
-
+        assertThat(notes.title == request.title)
     }
 
     @DisplayName("Создание заметки типа LIST")
