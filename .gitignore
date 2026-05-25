@@ -15,8 +15,6 @@ out/
 
 ### Kotlin ###
 .kotlin
-application.yml
-RequestSpec.kt
 
 ### Eclipse ###
 .apt_generated
