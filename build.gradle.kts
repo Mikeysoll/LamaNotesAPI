@@ -19,6 +19,7 @@ dependencies {
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     testImplementation(kotlin("test"))
+    testImplementation("org.assertj:assertj-core:4.0.0-M1")
 
     // ===== REST ASSURED =====
     testImplementation("io.rest-assured:rest-assured:5.5.0")

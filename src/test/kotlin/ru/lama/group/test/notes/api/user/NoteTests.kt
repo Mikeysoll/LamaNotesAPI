@@ -1,5 +1,6 @@
 package ru.lama.group.test.notes.api.user
 
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -9,7 +10,7 @@ import ru.lama.group.test.notes.client.NoteApiClient
 import ru.lama.group.test.notes.steps.NoteSteps
 import java.util.*
 
-class NoteTests: TestBase() {
+class NoteTests : TestBase() {
 
     private val noteApiClient = NoteApiClient(context)
     private val noteSteps = NoteSteps(noteApiClient)
@@ -30,6 +31,7 @@ class NoteTests: TestBase() {
         val exists = notes.any { it.title == request.title }
         assertTrue(exists)
 
+        assertThat(notes.title == request.title)
     }
 
     @DisplayName("Создание заметки типа LIST")
