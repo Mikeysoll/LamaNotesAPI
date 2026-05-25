@@ -26,11 +26,7 @@ class NoteTests : TestBase() {
             type = "NOTE"
         )
 
-        noteSteps.createNote(request)
-        val notes = noteSteps.getNote()
-        val exists = notes.any { it.title == request.title }
-        assertTrue(exists)
-
+        val notes = noteSteps.createNote(request)
         assertThat(notes.title == request.title)
     }
 
@@ -45,11 +41,8 @@ class NoteTests : TestBase() {
             type = "LIST"
         )
 
-        noteSteps.createNote(request)
-        val notes = noteApiClient.getNote()
-
-        val exists = notes.any { it.title == request.title }
-        assertTrue(exists)
+        val notes = noteSteps.createNote(request)
+        assertThat(notes.title == request.title)
     }
 
     @DisplayName("Создание заметки типа WISH_LIST")
