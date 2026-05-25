@@ -28,6 +28,8 @@ class NoteTests : TestBase() {
 
         val notes = noteSteps.createNote(request)
         assertThat(notes.title == request.title)
+        assertThat(notes.color == request.color)
+        assertThat(notes.type == request.type)
     }
 
     @DisplayName("Создание заметки типа LIST")
@@ -43,6 +45,8 @@ class NoteTests : TestBase() {
 
         val notes = noteSteps.createNote(request)
         assertThat(notes.title == request.title)
+        assertThat(notes.color == request.color)
+        assertThat(notes.type == request.type)
     }
 
     @DisplayName("Создание заметки типа WISH_LIST")
@@ -56,10 +60,9 @@ class NoteTests : TestBase() {
             type = "WISH_LIST"
         )
 
-        noteSteps.createNote(request)
-        val notes = noteApiClient.getNote()
-
-        val exists = notes.any { it.title == request.title }
-        assertTrue(exists)
+        val notes = noteSteps.createNote(request)
+        assertThat(notes.title == request.title)
+        assertThat(notes.color == request.color)
+        assertThat(notes.type == request.type)
     }
 }

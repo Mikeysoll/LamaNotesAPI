@@ -1,6 +1,7 @@
 package ru.lama.group.test.notes.api.user
 
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import ru.lama.group.test.notes.UserRequestBuilder
 import ru.lama.group.test.notes.client.UserApiClient
@@ -11,8 +12,9 @@ class UserTests {
     private val context = Context()
     private val userSteps = UserSteps(UserApiClient(), context)
 
+    @DisplayName("Создание пользователя")
     @Test
-    fun `create user`() {
+    fun createUser() {
         val request = UserRequestBuilder.createUserRq()
         val response = userSteps.createUser(request)
 
