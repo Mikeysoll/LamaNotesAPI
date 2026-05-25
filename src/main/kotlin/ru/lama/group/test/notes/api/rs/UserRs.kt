@@ -6,7 +6,7 @@ data class UserRs(
     val login: String,
     val name: String,
     val tariff: Tariff,
-    val telegramUrl: TelegramUrl,
+    val telegramUrl: String,
 )
 
 data class Tariff(
@@ -25,8 +25,4 @@ data class Tariff(
 data class TariffSettings(
     val maxNoteCount: Int,
     val maxFolderCount: Int
-)
-
-data class TelegramUrl(
-    val telegramUrl: String
 )

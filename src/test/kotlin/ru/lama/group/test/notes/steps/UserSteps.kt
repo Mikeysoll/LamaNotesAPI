@@ -3,6 +3,7 @@ package ru.lama.group.test.notes.steps
 import io.qameta.allure.Step
 import io.restassured.response.Response
 import ru.lama.group.test.notes.api.rq.UserRq
+import ru.lama.group.test.notes.api.rs.UserRs
 import ru.lama.group.test.notes.client.UserApiClient
 import ru.lama.group.test.notes.context.Context
 
@@ -21,7 +22,7 @@ class UserSteps(
     }
 
     @Step("Отправка запроса GET /user")
-    fun getUser(): Response {
+    fun getUser(): UserRs {
         return userApiClient.getUser()
     }
 }

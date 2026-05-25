@@ -14,7 +14,7 @@ class AuthTests {
 
     private val context = Context()
     private val authSteps = AuthSteps(AuthApiClient(context), context)
-    private val userSteps = UserSteps(UserApiClient(), context)
+    private val userSteps = UserSteps(UserApiClient(context), context)
 
 
     @DisplayName("Аутентификация и получение токена")

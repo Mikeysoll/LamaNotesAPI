@@ -12,7 +12,7 @@ open class TestBase {
 
     protected val context = Context()
     private val authSteps = AuthSteps(AuthApiClient(context), context)
-    private val userSteps = UserSteps(UserApiClient(), context)
+    private val userSteps = UserSteps(UserApiClient(context), context)
 
     @BeforeEach
     fun setUp() {
