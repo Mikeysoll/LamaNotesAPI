@@ -1,23 +1,18 @@
 package ru.lama.group.test.notes.api.user
 
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import ru.lama.group.test.notes.UserRequestBuilder
 import ru.lama.group.test.notes.api.rq.NoteRq
 import ru.lama.group.test.notes.base.TestBase
-import ru.lama.group.test.notes.client.AuthApiClient
 import ru.lama.group.test.notes.client.NoteApiClient
-import ru.lama.group.test.notes.client.UserApiClient
-import ru.lama.group.test.notes.context.Context
-import ru.lama.group.test.notes.steps.AuthSteps
-import ru.lama.group.test.notes.steps.UserSteps
+import ru.lama.group.test.notes.steps.NoteSteps
 import java.util.*
 
 class NoteTests: TestBase() {
 
     private val noteApiClient = NoteApiClient(context)
+    private val noteSteps = NoteSteps(noteApiClient)
 
     @DisplayName("Создание заметки типа NOTE")
     @Test
@@ -30,9 +25,8 @@ class NoteTests: TestBase() {
             type = "NOTE"
         )
 
-        noteApiClient.createNote(request)
-        val notes = noteApiClient.getNotes()
-
+        noteSteps.createNote(request)
+        val notes = noteSteps.getNote()
         val exists = notes.any { it.title == request.title }
         assertTrue(exists)
 
@@ -49,8 +43,8 @@ class NoteTests: TestBase() {
             type = "LIST"
         )
 
-        noteApiClient.createNote(request)
-        val notes = noteApiClient.getNotes()
+        noteSteps.createNote(request)
+        val notes = noteApiClient.getNote()
 
         val exists = notes.any { it.title == request.title }
         assertTrue(exists)
@@ -67,8 +61,8 @@ class NoteTests: TestBase() {
             type = "WISH_LIST"
         )
 
-        noteApiClient.createNote(request)
-        val notes = noteApiClient.getNotes()
+        noteSteps.createNote(request)
+        val notes = noteApiClient.getNote()
 
         val exists = notes.any { it.title == request.title }
         assertTrue(exists)
