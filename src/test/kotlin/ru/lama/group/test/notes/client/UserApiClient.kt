@@ -3,12 +3,11 @@ package ru.lama.group.test.notes.client
 import io.restassured.RestAssured.given
 import io.restassured.response.Response
 import ru.lama.group.test.notes.api.rq.UserRq
-import ru.lama.group.test.notes.api.rs.UserRs
 import ru.lama.group.test.notes.base.baseRequestSpec
 
 class UserApiClient {
 
-    fun addUser(request: UserRq): Response {
+    fun createUser(request: UserRq): Response {
         return given()
             .spec(baseRequestSpec())
             .log().all()
@@ -16,6 +15,18 @@ class UserApiClient {
             .post("/user")
             .then()
             .log().all()
+            .statusCode(204)
+            .extract()
+            .response()
+    }
+    fun getUser(): Response {
+        return given()
+            .spec(baseRequestSpec())
+            .log().all()
+            .get("/user")
+            .then()
+            .log().all()
+            .statusCode(200)
             .extract()
             .response()
     }

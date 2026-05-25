@@ -19,6 +19,7 @@ class NoteApiClient(
             .post("/note")
             .then()
             .log().all()
+            .statusCode(200)
             .extract()
             .`as`(NoteRs::class.java)
     }
@@ -32,6 +33,7 @@ class NoteApiClient(
             .get("/note")
             .then()
             .log().all()
+            .statusCode(200)
             .extract()
             .`as`(object : TypeRef<List<NoteRs>>() {})
     }
