@@ -23,7 +23,7 @@ class NoteApiClient(
             .`as`(NoteRs::class.java)
     }
 
-    fun getNotes(): List<NoteRs> {
+    fun getNote(): List<NoteRs> {
         return given()
             .spec(baseRequestSpec())
             .log().all()
