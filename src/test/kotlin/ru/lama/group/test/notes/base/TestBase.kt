@@ -20,5 +20,4 @@ open class TestBase {
         userSteps.createUser(request)
         authSteps.auth()
     }
-
 }

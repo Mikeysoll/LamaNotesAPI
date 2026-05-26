@@ -10,4 +10,5 @@ fun baseRequestSpec(): RequestSpecification {
         .addHeader("X-Project-Token", "VFsQEvgwiDYwG_9B1KaZAOph4YzrwcmUFnEku2KOJDWmoOtdYELsbAncUwCsVfkg")
         .addHeader("Content-Type", "application/json")
         .build()
+        .log().all()
 }

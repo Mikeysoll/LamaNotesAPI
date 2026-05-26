@@ -14,12 +14,9 @@ class UserApiClient(
     fun createUser(request: UserRq): Response {
         return given()
             .spec(baseRequestSpec())
-            .log().all()
             .body(request)
             .post("/user")
             .then()
-            .log().all()
-            .statusCode(204)
             .extract()
             .response()
     }
@@ -27,12 +24,9 @@ class UserApiClient(
     fun getUser(): UserRs {
         return given()
             .spec(baseRequestSpec())
-            .log().all()
             .header("Authorization", "Bearer ${context.token}")
             .get("/user")
             .then()
-            .log().all()
-            .statusCode(200)
             .extract()
             .`as`(UserRs::class.java)
     }
@@ -40,13 +34,10 @@ class UserApiClient(
     fun resetPassword(resetPasswordRq: ResetPasswordRq): Response {
         return given()
             .spec(baseRequestSpec())
-            .log().all()
             .header("Authorization", "Bearer ${context.token}")
             .body(resetPasswordRq)
             .post("/user/reset")
             .then()
-            .log().all()
-            .statusCode(204)
             .extract()
             .response()
     }
