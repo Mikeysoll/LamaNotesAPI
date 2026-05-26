@@ -11,7 +11,7 @@ import ru.lama.group.test.notes.client.UserApiClient
 import ru.lama.group.test.notes.context.Context
 import ru.lama.group.test.notes.steps.AuthSteps
 import ru.lama.group.test.notes.steps.UserSteps
-import java.util.UUID
+import java.util.*
 
 class UserTests {
     private val context = Context()
@@ -31,7 +31,6 @@ class UserTests {
     @DisplayName("Создание и получение текущего пользователя")
     @Test
     fun getUser() {
-
         val request = UserRequestBuilder.createUserRq()
         userSteps.createUser(request)
         authSteps.auth()
@@ -58,10 +57,7 @@ class UserTests {
         context.psw = newPsw
         authSteps.auth()
 
-
-        assertEquals(204 , response.statusCode())
-
-
+        assertEquals(204, response.statusCode())
     }
 
 }

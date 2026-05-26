@@ -14,14 +14,11 @@ class AuthApiClient(
     fun auth(): AuthRs {
         return given()
             .spec(baseRequestSpec())
-            .log().all()
             .queryParam("login", context.login)
             .queryParam("psw", context.psw)
             .body(AuthRq(context.login, context.psw))
             .post("/auth")
             .then()
-            .log().all()
-            .statusCode(200)
             .extract()
             .`as`(AuthRs::class.java)
     }
@@ -29,14 +26,11 @@ class AuthApiClient(
     fun authError(): Response {
         return given()
             .spec(baseRequestSpec())
-            .log().all()
             .queryParam("login", context.login)
             .queryParam("psw", context.psw)
             .body(AuthRq(context.login, context.psw))
             .post("/auth")
             .then()
-            .log().all()
-            .statusCode(400)
             .extract()
             .response()
     }

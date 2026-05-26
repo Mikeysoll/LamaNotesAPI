@@ -18,7 +18,6 @@ class NoteTests : TestBase() {
     @DisplayName("Создание заметки типа NOTE")
     @Test
     fun addNote() {
-
         val request = NoteRq(
             title = "ATestTitle" + UUID.randomUUID().toString().replace("-", "").take(10),
             content = "ATestContent" + UUID.randomUUID().toString().replace("-", "").take(10),

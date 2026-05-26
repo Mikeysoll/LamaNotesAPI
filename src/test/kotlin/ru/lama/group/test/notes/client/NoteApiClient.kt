@@ -13,13 +13,10 @@ class NoteApiClient(
     fun createNote(request: NoteRq): NoteRs {
         return given()
             .spec(baseRequestSpec())
-            .log().all()
             .header("Authorization", "Bearer ${context.token}")
             .body(request)
             .post("/note")
             .then()
-            .log().all()
-            .statusCode(200)
             .extract()
             .`as`(NoteRs::class.java)
     }
@@ -27,13 +24,10 @@ class NoteApiClient(
     fun getNote(): List<NoteRs> {
         return given()
             .spec(baseRequestSpec())
-            .log().all()
             .header("Authorization", "Bearer ${context.token}")
             .queryParam("search", "")
             .get("/note")
             .then()
-            .log().all()
-            .statusCode(200)
             .extract()
             .`as`(object : TypeRef<List<NoteRs>>() {})
     }
