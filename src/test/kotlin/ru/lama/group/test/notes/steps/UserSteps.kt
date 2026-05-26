@@ -12,7 +12,6 @@ class UserSteps(
     private val userApiClient: UserApiClient,
     private val context: Context
 ) {
-
     @Step("Отправка запроса POST /user")
     fun createUser(user: UserRq): Response {
 

@@ -31,5 +31,4 @@ class NoteApiClient(
             .extract()
             .`as`(object : TypeRef<List<NoteRs>>() {})
     }
-
 }

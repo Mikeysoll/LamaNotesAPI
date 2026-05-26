@@ -8,7 +8,6 @@ import ru.lama.group.test.notes.client.NoteApiClient
 class NoteSteps(
     private val noteApiClient: NoteApiClient,
 ) {
-
     @Step("Отправка запроса POST /note")
     fun createNote(noteRq: NoteRq): NoteRs {
         return noteApiClient.createNote(noteRq)
@@ -18,5 +17,4 @@ class NoteSteps(
     fun getNote(): List<NoteRs> {
         return noteApiClient.getNote()
     }
-
 }
