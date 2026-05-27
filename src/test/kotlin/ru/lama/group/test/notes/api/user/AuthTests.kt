@@ -16,7 +16,6 @@ class AuthTests {
     private val authSteps = AuthSteps(AuthApiClient(context), context)
     private val userSteps = UserSteps(UserApiClient(context), context)
 
-
     @DisplayName("Аутентификация и получение токена")
     @Test
     fun auth() {
@@ -28,5 +27,4 @@ class AuthTests {
 
         assertTrue { response.token.isNotEmpty() }
     }
-
 }

@@ -59,7 +59,6 @@ class UserTests {
 
         assertEquals(204, response.statusCode())
     }
-
 }
 
 
