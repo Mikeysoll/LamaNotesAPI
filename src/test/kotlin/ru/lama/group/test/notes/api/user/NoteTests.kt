@@ -65,4 +65,8 @@ class NoteTests : TestBase() {
         assertThat(notes.color == request.color)
         assertThat(notes.type == request.type)
     }
+
+    @DisplayName("Получение списка заметок")
+    @Test
+    fun getNoteList(){}
 }
