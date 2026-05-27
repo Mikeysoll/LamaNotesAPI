@@ -17,9 +17,9 @@ object NoteRequestBuilder {
         return NoteRq(
             title = title,
             content = content,
-            color = color,
+            color = color.value,
             folderId = folderId,
-            type = type,
+            type = type.value,
         )
     }
 }
