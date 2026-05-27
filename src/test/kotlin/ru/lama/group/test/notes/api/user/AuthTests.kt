@@ -1,5 +1,6 @@
 package ru.lama.group.test.notes.api.user
 
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import ru.lama.group.test.notes.UserRequestBuilder
@@ -26,7 +27,7 @@ class AuthTests {
         val response = authSteps.auth()
         context.token = response.token
 
-        assertTrue { response.token.isNotEmpty() }
+        assertThat(response.token).isNotEmpty()
     }
 
 }
