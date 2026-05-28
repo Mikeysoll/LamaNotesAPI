@@ -1,6 +1,5 @@
 package ru.lama.group.test.notes.api.user
 
-import jdk.internal.vm.Continuation.isPinned
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -74,5 +73,10 @@ class NoteTests : TestBase() {
         else updatedNote.color = "color-one"
 
         noteSteps.updateNote(updatedNote)
+
+        val response = noteSteps.getNote().find { it.id == updatedNote.id }
+
+        assertThat(response?.color).isNotEqualTo(originalNote.color)
+        assertThat(response?.isPinned).isNotEqualTo(originalNote.isPinned)
     }
 }
