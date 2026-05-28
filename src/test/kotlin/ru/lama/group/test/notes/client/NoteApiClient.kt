@@ -2,6 +2,7 @@ package ru.lama.group.test.notes.client
 
 import io.restassured.RestAssured.given
 import io.restassured.common.mapper.TypeRef
+import io.restassured.response.Response
 import ru.lama.group.test.notes.api.rq.NoteRq
 import ru.lama.group.test.notes.api.rs.NoteRs
 import ru.lama.group.test.notes.base.baseRequestSpec
@@ -30,5 +31,16 @@ class NoteApiClient(
             .then()
             .extract()
             .`as`(object : TypeRef<List<NoteRs>>() {})
+    }
+
+    fun updateNote(updatedNote: NoteRs): Response {
+        return given()
+            .spec(baseRequestSpec())
+            .header("Authorization", "Bearer ${context.token}")
+            .body(updatedNote)
+            .put("/note")
+            .then()
+            .extract()
+            .response()
     }
 }

@@ -3,13 +3,12 @@ package ru.lama.group.test.notes.api.rs
 import kotlin.time.Instant
 
 data class NoteRs(
-
     val id: String,
     val updatedAt: String,
     val title: String,
     val preview: String,
-    val color: String,
-    val isPinned: Boolean,
+    var color: String,
+    var isPinned: Boolean,
     val type: String,
     val shareSettings: ShareSettings,
     val userId: String,

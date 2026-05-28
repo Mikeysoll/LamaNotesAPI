@@ -18,18 +18,18 @@ class UserTests {
     private val authSteps = AuthSteps(AuthApiClient(context), context)
     private val authApiClient = AuthApiClient(context)
 
-    @DisplayName("Создание пользователя")
     @Test
-    fun createUser() {
+    @DisplayName("Создание пользователя")
+    fun `create user`() {
         val request = UserRequestBuilder.createUserRq()
         val response = userSteps.createUser(request)
 
         assertThat(204).isEqualTo(response.statusCode)
     }
 
-    @DisplayName("Создание и получение текущего пользователя")
     @Test
-    fun getUser() {
+    @DisplayName("Создание и получение текущего пользователя")
+    fun `get user`() {
         val request = UserRequestBuilder.createUserRq()
         userSteps.createUser(request)
         authSteps.auth()
@@ -40,9 +40,9 @@ class UserTests {
         assertThat(context.name).isEqualTo(response.name)
     }
 
-    @DisplayName("Смена пароля")
     @Test
-    fun resetPassword() {
+    @DisplayName("Смена пароля")
+    fun `reset password`() {
         val request = UserRequestBuilder.createUserRq()
         userSteps.createUser(request)
         authSteps.auth()

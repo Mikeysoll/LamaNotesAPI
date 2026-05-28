@@ -16,8 +16,8 @@ class AuthTests {
     private val authSteps = AuthSteps(AuthApiClient(context), context)
     private val userSteps = UserSteps(UserApiClient(context), context)
 
-    @DisplayName("Аутентификация и получение токена")
     @Test
+    @DisplayName("Аутентификация и получение токена")
     fun auth() {
         val request = UserRequestBuilder.createUserRq()
         userSteps.createUser(request)
