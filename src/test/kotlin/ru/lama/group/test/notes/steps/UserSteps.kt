@@ -31,4 +31,9 @@ class UserSteps(
     fun resetPassword(resetPasswordRq: ResetPasswordRq): Response {
         return userApiClient.resetPassword(resetPasswordRq)
     }
+
+/*    @Step("Удаление тестовых юзеров")
+    fun deleteUsers(): Response {
+        return userApiClien.deleteUsers()
+    }*/
 }

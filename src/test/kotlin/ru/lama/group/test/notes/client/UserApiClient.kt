@@ -41,4 +41,11 @@ class UserApiClient(
             .extract()
             .response()
     }
+
+/*    fun deleteUsers(): Response {
+        return given
+            .spec(baseRequestSpec())
+
+
+    }*/
 }
