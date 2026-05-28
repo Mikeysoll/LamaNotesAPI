@@ -1,5 +1,6 @@
 package ru.lama.group.test.notes.base
 
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import ru.lama.group.test.notes.UserRequestBuilder
 import ru.lama.group.test.notes.client.AuthApiClient
@@ -20,4 +21,9 @@ open class TestBase {
         userSteps.createUser(request)
         authSteps.auth()
     }
+
+/*    @AfterEach
+    fun cleanUp(){
+
+    }*/
 }

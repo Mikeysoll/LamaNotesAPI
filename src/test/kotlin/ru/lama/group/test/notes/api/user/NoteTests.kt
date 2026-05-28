@@ -17,8 +17,8 @@ class NoteTests : TestBase() {
     private val noteApiClient = NoteApiClient(context)
     private val noteSteps = NoteSteps(noteApiClient)
 
-    @DisplayName("Создание заметок разных типов")
     @ParameterizedTest(name = "Заметка типа {0}")
+    @DisplayName("Создание заметок разных типов")
     @EnumSource(Types::class)
     fun `add note`(type: Types) {
         val request = createNoteRq(type = type)
@@ -29,8 +29,8 @@ class NoteTests : TestBase() {
         assertThat(notes.type).isEqualTo(request.type)
     }
 
-    @DisplayName("Получение заметки из списка")
     @Test
+    @DisplayName("Получение заметки из списка")
     fun `get note from list`() {
         val request = createNoteRq()
         val createdNote = noteSteps.createNote(request)
@@ -39,8 +39,8 @@ class NoteTests : TestBase() {
         assertThat(response.find { it.title == createdNote.title }).isEqualTo(createdNote)
     }
 
-    @DisplayName("Получение списка заметок")
     @Test
+    @DisplayName("Получение списка заметок")
     fun `get note`() {
         val noteOne = createNoteRq()
         val noteTwo = createNoteRq()
@@ -57,8 +57,8 @@ class NoteTests : TestBase() {
         assertThat(response.size).isEqualTo(3)
     }
 
-    @DisplayName("Обновление заметки")
     @Test
+    @DisplayName("Обновление заметки")
     fun `update note`() {
         val noteOne = createNoteRq(
             color = Colors.COLOR_ONE,
@@ -81,8 +81,8 @@ class NoteTests : TestBase() {
         assertThat(response?.isPinned).isNotEqualTo(originalNote.isPinned)
     }
 
-    @DisplayName("Проверка закрепления заметки")
     @Test
+    @DisplayName("Проверка закрепления заметки")
     fun `pinned note`(){
         val noteOne = createNoteRq(title = "NoteOne")
         val noteTwo = createNoteRq(title = "NoteTwo")
