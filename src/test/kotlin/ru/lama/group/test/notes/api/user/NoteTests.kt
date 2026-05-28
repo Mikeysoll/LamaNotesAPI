@@ -1,7 +1,6 @@
 package ru.lama.group.test.notes.api.user
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -23,6 +22,7 @@ class NoteTests : TestBase() {
     fun addNote(type: Types) {
         val request = createNoteRq(type = type)
         val notes = noteSteps.createNote(request)
+
         assertThat(notes.title).isEqualTo(request.title)
         assertThat(notes.color).isEqualTo(request.color)
         assertThat(notes.type).isEqualTo(request.type)
@@ -34,6 +34,7 @@ class NoteTests : TestBase() {
         val request = createNoteRq()
         val createdNote = noteSteps.createNote(request)
         val response = noteSteps.getNote()
+
         assertThat(response.find { it.title == createdNote.title } ).isEqualTo(createdNote)
     }
 }

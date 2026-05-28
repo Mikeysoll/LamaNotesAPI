@@ -1,7 +1,6 @@
 package ru.lama.group.test.notes.api.user
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import ru.lama.group.test.notes.UserRequestBuilder

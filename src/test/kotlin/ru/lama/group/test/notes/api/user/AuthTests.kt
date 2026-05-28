@@ -9,7 +9,6 @@ import ru.lama.group.test.notes.client.UserApiClient
 import ru.lama.group.test.notes.context.Context
 import ru.lama.group.test.notes.steps.AuthSteps
 import ru.lama.group.test.notes.steps.UserSteps
-import kotlin.test.assertTrue
 
 class AuthTests {
 
