@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 import ru.lama.group.test.notes.NoteRequestBuilder.createNoteRq
+import ru.lama.group.test.notes.api.constants.Colors
 import ru.lama.group.test.notes.api.constants.Types
 import ru.lama.group.test.notes.base.TestBase
 import ru.lama.group.test.notes.client.NoteApiClient
@@ -35,12 +36,12 @@ class NoteTests : TestBase() {
         val createdNote = noteSteps.createNote(request)
         val response = noteSteps.getNote()
 
-        assertThat(response.find { it.title == createdNote.title } ).isEqualTo(createdNote)
+        assertThat(response.find { it.title == createdNote.title }).isEqualTo(createdNote)
     }
 
     @DisplayName("Получение списка заметок")
     @Test
-    fun getNote(){
+    fun getNote() {
         val noteOne = createNoteRq()
         val noteTwo = createNoteRq()
         val noteThree = createNoteRq()
@@ -54,5 +55,29 @@ class NoteTests : TestBase() {
         response = noteSteps.getNote()
 
         assertThat(response.size).isEqualTo(3)
+    }
+
+    @DisplayName("Обновление заметки")
+    @Test
+    fun updateNote() {
+        val noteOne = createNoteRq(
+            color = Colors.COLOR_ONE,
+        )
+        val originalNote = noteSteps.createNote(noteOne)
+
+        val updatedNote = originalNote.copy(
+            color = Colors.COLOR_TWO.value,
+            isPinned = true
+        )
+
+        updatedNote.color = "color-two"
+        updatedNote.isPinned = true
+
+        noteSteps.updateNote(updatedNote)
+
+        val response = noteSteps.getNote().find { it.id == updatedNote.id }
+
+        assertThat(response?.color).isNotEqualTo(originalNote.color)
+        assertThat(response?.isPinned).isNotEqualTo(originalNote.isPinned)
     }
 }
