@@ -21,7 +21,7 @@ open class TestBase {
         userSteps.createUser(request)
         authSteps.auth()
     }
-
+//Ниндзя коммент
     @AfterEach
     fun cleanUp(){
         userSteps.deleteTestUsers()
