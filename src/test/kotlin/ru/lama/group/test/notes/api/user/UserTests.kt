@@ -1,7 +1,6 @@
 package ru.lama.group.test.notes.api.user
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import ru.lama.group.test.notes.UserRequestBuilder
@@ -25,7 +24,7 @@ class UserTests {
         val request = UserRequestBuilder.createUserRq()
         val response = userSteps.createUser(request)
 
-        assertEquals(204, response.statusCode())
+        assertThat(204).isEqualTo(response.statusCode)
     }
 
     @DisplayName("Создание и получение текущего пользователя")
@@ -37,8 +36,8 @@ class UserTests {
 
         val response = userSteps.getUser()
 
-        assertThat(context.login == response.login)
-        assertThat(context.name == response.name)
+        assertThat(context.login).isEqualTo(response.login)
+        assertThat(context.name).isEqualTo(response.name)
     }
 
     @DisplayName("Смена пароля")
@@ -57,7 +56,7 @@ class UserTests {
         context.psw = newPsw
         authSteps.auth()
 
-        assertEquals(204, response.statusCode())
+        assertThat(204).isEqualTo(response.statusCode)
     }
 }
 

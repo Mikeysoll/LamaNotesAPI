@@ -1,8 +1,8 @@
 package ru.lama.group.test.notes.context
 
 class Context {
-    var token: String = ""
-    var login: String = ""
-    var psw: String = ""
-    var name: String = ""
+    lateinit var token: String
+    lateinit var login: String
+    lateinit var psw: String
+    lateinit var name: String
 }

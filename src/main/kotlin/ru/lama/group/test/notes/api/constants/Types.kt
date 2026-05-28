@@ -1,8 +1,8 @@
 package ru.lama.group.test.notes.api.constants
 
-enum class Types(string: String) {
+enum class Types(val value: String) {
 
-    TYPE1("NOTE"),
-    TYPE2("LIST"),
-    TYPE3("WISH_LIST")
+    NOTE("NOTE"),
+    LIST("LIST"),
+    WISH_LIST("WISH_LIST")
 }

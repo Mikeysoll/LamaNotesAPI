@@ -21,15 +21,19 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation("org.assertj:assertj-core:4.0.0-M1")
 
-    // ===== REST ASSURED =====
+    // REST ASSURED
     testImplementation("io.rest-assured:rest-assured:5.5.0")
     testImplementation("io.rest-assured:json-path:5.5.0")
 
-    // ===== JSON SERIALIZATION =====
+    // JSON SERIALIZATION
     testImplementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.2")
 
-    // ===== ALLURE =====
+    // ALLURE
     testImplementation("io.qameta.allure:allure-junit5:2.34.0")
+
+    // JUNIT 5 PARAMS
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.3")
+
 }
 
 tasks.test {

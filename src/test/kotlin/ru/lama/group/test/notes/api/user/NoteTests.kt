@@ -1,68 +1,40 @@
 package ru.lama.group.test.notes.api.user
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import ru.lama.group.test.notes.api.rq.NoteRq
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.EnumSource
+import ru.lama.group.test.notes.NoteRequestBuilder.createNoteRq
+import ru.lama.group.test.notes.api.constants.Types
 import ru.lama.group.test.notes.base.TestBase
 import ru.lama.group.test.notes.client.NoteApiClient
 import ru.lama.group.test.notes.steps.NoteSteps
-import java.util.*
 
 class NoteTests : TestBase() {
 
     private val noteApiClient = NoteApiClient(context)
     private val noteSteps = NoteSteps(noteApiClient)
 
-    @DisplayName("Создание заметки типа NOTE")
-    @Test
-    fun addNote() {
-        val request = NoteRq(
-            title = "ATestTitle" + UUID.randomUUID().toString().replace("-", "").take(10),
-            content = "ATestContent" + UUID.randomUUID().toString().replace("-", "").take(10),
-            color = listOf("color-one", "color-two", "color-three", "color-four", "color-five").random(),
-            folderId = null,
-            type = "NOTE"
-        )
-
+    @DisplayName("Создание заметок разных типов")
+    @ParameterizedTest(name = "Заметка типа {0}")
+    @EnumSource(Types::class)
+    fun addNote(type: Types) {
+        val request = createNoteRq(type = type)
         val notes = noteSteps.createNote(request)
-        assertThat(notes.title == request.title)
-        assertThat(notes.color == request.color)
-        assertThat(notes.type == request.type)
+
+        assertThat(notes.title).isEqualTo(request.title)
+        assertThat(notes.color).isEqualTo(request.color)
+        assertThat(notes.type).isEqualTo(request.type)
     }
 
-    @DisplayName("Создание заметки типа LIST")
+    @DisplayName("Получение заметки из списка")
     @Test
-    fun addList() {
-        val request = NoteRq(
-            title = "ATestTitle" + UUID.randomUUID().toString().replace("-", "").take(10),
-            content = "ATestContent" + UUID.randomUUID().toString().replace("-", "").take(10),
-            color = listOf("color-one", "color-two", "color-three", "color-four", "color-five").random(),
-            folderId = null,
-            type = "LIST"
-        )
+    fun getNoteFromList() {
+        val request = createNoteRq()
+        val createdNote = noteSteps.createNote(request)
+        val response = noteSteps.getNote()
 
-        val notes = noteSteps.createNote(request)
-        assertThat(notes.title == request.title)
-        assertThat(notes.color == request.color)
-        assertThat(notes.type == request.type)
-    }
-
-    @DisplayName("Создание заметки типа WISH_LIST")
-    @Test
-    fun addWishList() {
-        val request = NoteRq(
-            title = "ATestTitle" + UUID.randomUUID().toString().replace("-", "").take(10),
-            content = "ATestContent" + UUID.randomUUID().toString().replace("-", "").take(10),
-            color = listOf("color-one", "color-two", "color-three", "color-four", "color-five").random(),
-            folderId = null,
-            type = "WISH_LIST"
-        )
-
-        val notes = noteSteps.createNote(request)
-        assertThat(notes.title == request.title)
-        assertThat(notes.color == request.color)
-        assertThat(notes.type == request.type)
+        assertThat(response.find { it.title == createdNote.title } ).isEqualTo(createdNote)
     }
 }
