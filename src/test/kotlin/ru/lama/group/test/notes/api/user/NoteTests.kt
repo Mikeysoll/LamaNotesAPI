@@ -55,4 +55,14 @@ class NoteTests : TestBase() {
 
         assertThat(response.size).isEqualTo(3)
     }
+
+    @DisplayName("Обновление заметки")
+    @Test
+    fun updateNote() {
+        val noteOne = createNoteRq()
+        noteSteps.createNote(noteOne)
+
+
+
+    }
 }

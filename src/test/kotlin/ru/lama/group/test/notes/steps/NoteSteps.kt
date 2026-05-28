@@ -1,6 +1,7 @@
 package ru.lama.group.test.notes.steps
 
 import io.qameta.allure.Step
+import io.restassured.response.Response
 import ru.lama.group.test.notes.api.rq.NoteRq
 import ru.lama.group.test.notes.api.rs.NoteRs
 import ru.lama.group.test.notes.client.NoteApiClient
