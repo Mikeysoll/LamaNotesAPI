@@ -2,6 +2,7 @@ package ru.lama.group.test.notes.client
 
 import io.restassured.RestAssured.given
 import io.restassured.response.Response
+import org.junit.jupiter.api.AfterEach
 import ru.lama.group.test.notes.api.rq.ResetPasswordRq
 import ru.lama.group.test.notes.api.rq.UserRq
 import ru.lama.group.test.notes.api.rs.UserRs
@@ -42,10 +43,13 @@ class UserApiClient(
             .response()
     }
 
-/*    fun deleteUsers(): Response {
-        return given
+    fun deleteTestUsers(): Response {
+        return given()
             .spec(baseRequestSpec())
-
-
-    }*/
+            .header("Authorization", "Bearer ${context.token}")
+            .delete("/adm/user")
+            .then()
+            .extract()
+            .response()
+    }
 }

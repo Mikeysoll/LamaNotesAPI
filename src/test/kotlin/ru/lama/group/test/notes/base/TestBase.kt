@@ -22,9 +22,8 @@ open class TestBase {
         authSteps.auth()
     }
 
-/*    @AfterEach
+    @AfterEach
     fun cleanUp(){
-    123 testNOte
-    заебало тесттить
-    }*/
+        userSteps.deleteTestUsers()
+    }
 }

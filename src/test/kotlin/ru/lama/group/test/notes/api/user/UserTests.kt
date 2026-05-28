@@ -1,6 +1,7 @@
 package ru.lama.group.test.notes.api.user
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import ru.lama.group.test.notes.UserRequestBuilder
@@ -17,6 +18,11 @@ class UserTests {
     private val userSteps = UserSteps(UserApiClient(context), context)
     private val authSteps = AuthSteps(AuthApiClient(context), context)
     private val authApiClient = AuthApiClient(context)
+
+    @AfterEach
+    fun cleanUp(){
+        userSteps.deleteTestUsers()
+    }
 
     @Test
     @DisplayName("Создание пользователя")
