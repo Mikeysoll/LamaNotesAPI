@@ -37,4 +37,22 @@ class NoteTests : TestBase() {
 
         assertThat(response.find { it.title == createdNote.title } ).isEqualTo(createdNote)
     }
+
+    @DisplayName("Получение списка заметок")
+    @Test
+    fun getNote(){
+        val noteOne = createNoteRq()
+        val noteTwo = createNoteRq()
+        val noteThree = createNoteRq()
+        noteSteps.createNote(noteOne)
+        noteSteps.createNote(noteTwo)
+        var response = noteSteps.getNote()
+
+        assertThat(response.size).isEqualTo(2)
+
+        noteSteps.createNote(noteThree)
+        response = noteSteps.getNote()
+
+        assertThat(response.size).isEqualTo(3)
+    }
 }
