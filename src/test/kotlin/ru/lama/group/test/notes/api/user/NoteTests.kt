@@ -36,5 +36,6 @@ class NoteTests : TestBase() {
         val createdNote = noteSteps.createNote(request)
         val response = noteSteps.getNote()
         assertThat(response.find { it.title == createdNote.title } ).isEqualTo(createdNote)
+
     }
 }
