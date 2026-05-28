@@ -4,6 +4,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.EnumSource
 import ru.lama.group.test.notes.NoteRequestBuilder.createNoteRq
 import ru.lama.group.test.notes.api.constants.Types
 import ru.lama.group.test.notes.base.TestBase
@@ -15,46 +17,23 @@ class NoteTests : TestBase() {
     private val noteApiClient = NoteApiClient(context)
     private val noteSteps = NoteSteps(noteApiClient)
 
-    @DisplayName("Создание заметки типа NOTE")
-    @Test
-    fun addNote() {
-        val request = createNoteRq(type = Types.NOTE)
-
+    @DisplayName("Создание заметок разных типов")
+    @ParameterizedTest(name = "Заметка типа {0}")
+    @EnumSource(Types::class)
+    fun addNote(type: Types) {
+        val request = createNoteRq(type = type)
         val notes = noteSteps.createNote(request)
-        assertThat(notes.title == request.title)
-        assertThat(notes.color == request.color)
-        assertThat(notes.type == request.type)
+        assertThat(notes.title).isEqualTo(request.title)
+        assertThat(notes.color).isEqualTo(request.color)
+        assertThat(notes.type).isEqualTo(request.type)
     }
 
-    @DisplayName("Создание заметки типа LIST")
+    @DisplayName("Получение заметки из списка")
     @Test
-    fun addList() {
-        val request = createNoteRq(type = Types.LIST)
-
-        val notes = noteSteps.createNote(request)
-        assertThat(notes.title == request.title)
-        assertThat(notes.color == request.color)
-        assertThat(notes.type == request.type)
-    }
-
-    @DisplayName("Создание заметки типа WISH_LIST")
-    @Test
-    fun addWishList() {
-        val request = createNoteRq(type = Types.WISH_LIST)
-
-        val notes = noteSteps.createNote(request)
-        assertThat(notes.title == request.title)
-        assertThat(notes.color == request.color)
-        assertThat(notes.type == request.type)
-    }
-
-    @DisplayName("Получение списка заметок")
-    @Test
-    fun getNote() {
+    fun getNoteFromList() {
         val request = createNoteRq()
-        val note = noteSteps.createNote(request)
+        val createdNote = noteSteps.createNote(request)
         val response = noteSteps.getNote()
-        val exist = response.any { it.title == note.title }
-        assertTrue(exist, "Созданная заметка не найдена в списке")
+        assertThat(response.find { it.title == createdNote.title } ).isEqualTo(createdNote)
     }
 }
