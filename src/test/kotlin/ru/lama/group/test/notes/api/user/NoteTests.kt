@@ -64,13 +64,10 @@ class NoteTests : TestBase() {
 
         val updatedNote = originalNote.copy()
 
-        if (updatedNote.isPinned)
-            updatedNote.isPinned = false
-        else updatedNote.isPinned = true
-
-        if (updatedNote.color == "color-one")
-            updatedNote.color = "color-two"
-        else updatedNote.color = "color-one"
+        originalNote.color = "color-one"
+        updatedNote.color = "color-two"
+        originalNote.isPinned = false
+        updatedNote.isPinned = true
 
         noteSteps.updateNote(updatedNote)
 
