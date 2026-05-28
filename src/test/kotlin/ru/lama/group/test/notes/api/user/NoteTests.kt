@@ -20,7 +20,7 @@ class NoteTests : TestBase() {
     @DisplayName("Создание заметок разных типов")
     @ParameterizedTest(name = "Заметка типа {0}")
     @EnumSource(Types::class)
-    fun addNote(type: Types) {
+    fun `add note`(type: Types) {
         val request = createNoteRq(type = type)
         val notes = noteSteps.createNote(request)
 
@@ -31,7 +31,7 @@ class NoteTests : TestBase() {
 
     @DisplayName("Получение заметки из списка")
     @Test
-    fun getNoteFromList() {
+    fun `get note from list`() {
         val request = createNoteRq()
         val createdNote = noteSteps.createNote(request)
         val response = noteSteps.getNote()
@@ -41,7 +41,7 @@ class NoteTests : TestBase() {
 
     @DisplayName("Получение списка заметок")
     @Test
-    fun getNote() {
+    fun `get note`() {
         val noteOne = createNoteRq()
         val noteTwo = createNoteRq()
         val noteThree = createNoteRq()
@@ -59,7 +59,7 @@ class NoteTests : TestBase() {
 
     @DisplayName("Обновление заметки")
     @Test
-    fun updateNote() {
+    fun `update note`() {
         val noteOne = createNoteRq(
             color = Colors.COLOR_ONE,
         )
@@ -80,4 +80,41 @@ class NoteTests : TestBase() {
         assertThat(response?.color).isNotEqualTo(originalNote.color)
         assertThat(response?.isPinned).isNotEqualTo(originalNote.isPinned)
     }
+
+    @DisplayName("Проверка закрепления заметок")
+    @Test
+    fun `pinned note`(){
+        val noteOne = createNoteRq(title = "NoteOne")
+        val noteTwo = createNoteRq(title = "NoteTwo")
+        val noteThree = createNoteRq(title = "NoteThree")
+
+        noteSteps.createNote(noteOne)
+        noteSteps.createNote(noteTwo)
+        noteSteps.createNote(noteThree)
+
+        val response = noteSteps.getNote()
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -20,7 +20,7 @@ class UserTests {
 
     @DisplayName("Создание пользователя")
     @Test
-    fun createUser() {
+    fun `create user`() {
         val request = UserRequestBuilder.createUserRq()
         val response = userSteps.createUser(request)
 
@@ -29,7 +29,7 @@ class UserTests {
 
     @DisplayName("Создание и получение текущего пользователя")
     @Test
-    fun getUser() {
+    fun `get user`() {
         val request = UserRequestBuilder.createUserRq()
         userSteps.createUser(request)
         authSteps.auth()
@@ -42,7 +42,7 @@ class UserTests {
 
     @DisplayName("Смена пароля")
     @Test
-    fun resetPassword() {
+    fun `reset password`() {
         val request = UserRequestBuilder.createUserRq()
         userSteps.createUser(request)
         authSteps.auth()
