@@ -81,7 +81,7 @@ class NoteTests : TestBase() {
         assertThat(response?.isPinned).isNotEqualTo(originalNote.isPinned)
     }
 
-    @DisplayName("Проверка закрепления заметок")
+    @DisplayName("Проверка закрепления заметки")
     @Test
     fun `pinned note`(){
         val noteOne = createNoteRq(title = "NoteOne")
@@ -92,7 +92,19 @@ class NoteTests : TestBase() {
         noteSteps.createNote(noteTwo)
         noteSteps.createNote(noteThree)
 
-        val response = noteSteps.getNote()
+        val responseBeforePin = noteSteps.getNote()
+        val indexBeforePin = responseBeforePin.indexOfFirst{it.title == "NoteOne"}
+
+        assertThat(indexBeforePin).isEqualTo(2)
+
+        val updatedNote = responseBeforePin.find{it.title == "NoteOne"}
+        updatedNote!!.isPinned = true
+        noteSteps.updateNote(updatedNote)
+
+        val responseAfterPin = noteSteps.getNote()
+        val indexAfterPin = responseAfterPin.indexOfFirst{it.title == "NoteOne"}
+
+        assertThat(indexAfterPin).isEqualTo(0)
     }
 }
 
