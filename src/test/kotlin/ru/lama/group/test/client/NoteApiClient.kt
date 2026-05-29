@@ -43,4 +43,8 @@ class NoteApiClient(
             .extract()
             .response()
     }
+
+    fun getNoteContent(){
+
+    }
 }
