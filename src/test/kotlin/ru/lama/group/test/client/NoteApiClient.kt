@@ -3,10 +3,12 @@ package ru.lama.group.test.client
 import io.restassured.RestAssured.given
 import io.restassured.common.mapper.TypeRef
 import io.restassured.response.Response
+import org.apache.http.protocol.ResponseServer
 import ru.lama.group.test.notes.api.rq.NoteRq
 import ru.lama.group.test.notes.api.rs.NoteRs
 import ru.lama.group.test.base.baseRequestSpec
 import ru.lama.group.test.context.Context
+import ru.lama.group.test.notes.api.rs.NoteContentRq
 import ru.lama.group.test.notes.api.rs.NoteContentRs
 
 class NoteApiClient(
@@ -54,5 +56,16 @@ class NoteApiClient(
             .then()
             .extract()
             .`as`(object : TypeRef<NoteContentRs>() {})
+    }
+
+    fun updateNoteContent(request: NoteContentRq): Response {
+        return given()
+            .spec(baseRequestSpec())
+            .header("Authorization", "Bearer ${context.token}")
+            .body(request)
+            .put("/note/content")
+            .then()
+            .extract()
+            .response()
     }
 }

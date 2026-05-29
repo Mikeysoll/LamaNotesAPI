@@ -11,6 +11,8 @@ import ru.lama.group.test.builders.NoteRequestBuilder
 import ru.lama.group.test.client.NoteApiClient
 import ru.lama.group.test.notes.api.constants.Colors
 import ru.lama.group.test.notes.api.constants.Types
+import ru.lama.group.test.notes.api.rs.NoteContentRq
+import ru.lama.group.test.notes.api.rs.NoteContentRs
 import ru.lama.group.test.steps.NoteSteps
 
 class NoteTests : TestBase() {
@@ -126,7 +128,7 @@ class NoteTests : TestBase() {
     @Test
     @DisplayName("Обновление текста заметки")
     fun `update note content`(){
-
+        val noteOne = NoteRequestBuilder.createNoteRq()
     }
 }
 
