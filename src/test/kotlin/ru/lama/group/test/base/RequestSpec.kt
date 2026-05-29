@@ -1,4 +1,4 @@
-package ru.lama.group.test.notes.base
+package ru.lama.group.test.base
 
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.specification.RequestSpecification

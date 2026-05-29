@@ -1,14 +1,14 @@
-package ru.lama.group.test.notes.api.user
+package ru.lama.group.test.tests
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import ru.lama.group.test.notes.UserRequestBuilder
-import ru.lama.group.test.notes.client.AuthApiClient
-import ru.lama.group.test.notes.client.UserApiClient
-import ru.lama.group.test.notes.context.Context
-import ru.lama.group.test.notes.steps.AuthSteps
-import ru.lama.group.test.notes.steps.UserSteps
+import ru.lama.group.test.client.AuthApiClient
+import ru.lama.group.test.client.UserApiClient
+import ru.lama.group.test.context.Context
+import ru.lama.group.test.steps.AuthSteps
+import ru.lama.group.test.steps.UserSteps
 
 class AuthTests {
 

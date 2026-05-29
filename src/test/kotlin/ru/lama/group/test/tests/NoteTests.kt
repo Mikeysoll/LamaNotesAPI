@@ -1,4 +1,4 @@
-package ru.lama.group.test.notes.api.user
+package ru.lama.group.test.tests
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -8,9 +8,9 @@ import org.junit.jupiter.params.provider.EnumSource
 import ru.lama.group.test.notes.NoteRequestBuilder.createNoteRq
 import ru.lama.group.test.notes.api.constants.Colors
 import ru.lama.group.test.notes.api.constants.Types
-import ru.lama.group.test.notes.base.TestBase
-import ru.lama.group.test.notes.client.NoteApiClient
-import ru.lama.group.test.notes.steps.NoteSteps
+import ru.lama.group.test.base.TestBase
+import ru.lama.group.test.client.NoteApiClient
+import ru.lama.group.test.steps.NoteSteps
 
 class NoteTests : TestBase() {
 

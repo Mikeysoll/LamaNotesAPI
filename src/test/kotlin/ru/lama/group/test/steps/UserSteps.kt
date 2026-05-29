@@ -1,12 +1,12 @@
-package ru.lama.group.test.notes.steps
+package ru.lama.group.test.steps
 
 import io.qameta.allure.Step
 import io.restassured.response.Response
 import ru.lama.group.test.notes.api.rq.ResetPasswordRq
 import ru.lama.group.test.notes.api.rq.UserRq
 import ru.lama.group.test.notes.api.rs.UserRs
-import ru.lama.group.test.notes.client.UserApiClient
-import ru.lama.group.test.notes.context.Context
+import ru.lama.group.test.client.UserApiClient
+import ru.lama.group.test.context.Context
 
 class UserSteps(
     private val userApiClient: UserApiClient,

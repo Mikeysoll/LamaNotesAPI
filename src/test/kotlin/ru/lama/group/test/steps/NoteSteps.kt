@@ -1,10 +1,10 @@
-package ru.lama.group.test.notes.steps
+package ru.lama.group.test.steps
 
 import io.qameta.allure.Step
 import io.restassured.response.Response
 import ru.lama.group.test.notes.api.rq.NoteRq
 import ru.lama.group.test.notes.api.rs.NoteRs
-import ru.lama.group.test.notes.client.NoteApiClient
+import ru.lama.group.test.client.NoteApiClient
 
 class NoteSteps(
     private val noteApiClient: NoteApiClient,

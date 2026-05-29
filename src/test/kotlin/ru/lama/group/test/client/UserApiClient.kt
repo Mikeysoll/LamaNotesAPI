@@ -1,13 +1,12 @@
-package ru.lama.group.test.notes.client
+package ru.lama.group.test.client
 
 import io.restassured.RestAssured.given
 import io.restassured.response.Response
-import org.junit.jupiter.api.AfterEach
 import ru.lama.group.test.notes.api.rq.ResetPasswordRq
 import ru.lama.group.test.notes.api.rq.UserRq
 import ru.lama.group.test.notes.api.rs.UserRs
-import ru.lama.group.test.notes.base.baseRequestSpec
-import ru.lama.group.test.notes.context.Context
+import ru.lama.group.test.base.baseRequestSpec
+import ru.lama.group.test.context.Context
 
 class UserApiClient(
     private val context: Context
