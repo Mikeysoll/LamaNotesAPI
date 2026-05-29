@@ -1,9 +1,9 @@
-package ru.lama.group.test.tests
+package ru.lama.group.test.api.auth
 
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import ru.lama.group.test.notes.UserRequestBuilder
+import ru.lama.group.test.builders.UserRequestBuilder
 import ru.lama.group.test.client.AuthApiClient
 import ru.lama.group.test.client.UserApiClient
 import ru.lama.group.test.context.Context
@@ -25,6 +25,6 @@ class AuthTests {
         val response = authSteps.auth()
         context.token = response.token
 
-        assertThat(response.token).isNotEmpty()
+        Assertions.assertThat(response.token).isNotEmpty()
     }
 }

@@ -1,17 +1,17 @@
-package ru.lama.group.test.tests
+package ru.lama.group.test.api.user
 
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import ru.lama.group.test.notes.UserRequestBuilder
-import ru.lama.group.test.notes.api.rq.ResetPasswordRq
+import ru.lama.group.test.builders.UserRequestBuilder
 import ru.lama.group.test.client.AuthApiClient
 import ru.lama.group.test.client.UserApiClient
 import ru.lama.group.test.context.Context
+import ru.lama.group.test.notes.api.rq.ResetPasswordRq
 import ru.lama.group.test.steps.AuthSteps
 import ru.lama.group.test.steps.UserSteps
-import java.util.*
+import java.util.UUID
 
 class UserTests {
     private val context = Context()
@@ -30,7 +30,7 @@ class UserTests {
         val request = UserRequestBuilder.createUserRq()
         val response = userSteps.createUser(request)
 
-        assertThat(204).isEqualTo(response.statusCode)
+        Assertions.assertThat(204).isEqualTo(response.statusCode)
     }
 
     @Test
@@ -42,8 +42,8 @@ class UserTests {
 
         val response = userSteps.getUser()
 
-        assertThat(context.login).isEqualTo(response.login)
-        assertThat(context.name).isEqualTo(response.name)
+        Assertions.assertThat(context.login).isEqualTo(response.login)
+        Assertions.assertThat(context.name).isEqualTo(response.name)
     }
 
     @Test
@@ -62,40 +62,6 @@ class UserTests {
         context.psw = newPsw
         authSteps.auth()
 
-        assertThat(204).isEqualTo(response.statusCode)
+        Assertions.assertThat(204).isEqualTo(response.statusCode)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

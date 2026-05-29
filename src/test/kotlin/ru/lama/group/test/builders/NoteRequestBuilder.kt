@@ -1,4 +1,4 @@
-package ru.lama.group.test.notes
+package ru.lama.group.test.builders
 
 import ru.lama.group.test.notes.api.constants.Colors
 import ru.lama.group.test.notes.api.constants.Types

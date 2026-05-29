@@ -1,4 +1,4 @@
-package ru.lama.group.test.notes
+package ru.lama.group.test.builders
 
 import ru.lama.group.test.notes.api.rq.UserRq
 import java.util.UUID
