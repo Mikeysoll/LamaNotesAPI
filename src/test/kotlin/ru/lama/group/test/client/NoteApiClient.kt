@@ -7,6 +7,7 @@ import ru.lama.group.test.notes.api.rq.NoteRq
 import ru.lama.group.test.notes.api.rs.NoteRs
 import ru.lama.group.test.base.baseRequestSpec
 import ru.lama.group.test.context.Context
+import ru.lama.group.test.notes.api.rs.NoteContentRs
 
 class NoteApiClient(
     private val context: Context
@@ -44,7 +45,14 @@ class NoteApiClient(
             .response()
     }
 
-    fun getNoteContent(){
-
+    fun getNoteContent(id: String): NoteContentRs {
+        return given()
+            .spec(baseRequestSpec())
+            .header("Authorization", "Bearer ${context.token}")
+            .queryParam("noteId", id)
+            .get("/note/content")
+            .then()
+            .extract()
+            .`as`(object : TypeRef<NoteContentRs>() {})
     }
 }

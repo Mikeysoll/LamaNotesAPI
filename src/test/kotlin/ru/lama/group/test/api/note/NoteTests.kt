@@ -106,4 +106,44 @@ class NoteTests : TestBase() {
 
         Assertions.assertThat(indexAfterPin).isEqualTo(0)
     }
+
+    @Test
+    @DisplayName("Получение текста заметки"){
+        val noteOne = NoteRequestBuilder.createNoteRq()
+        noteSteps.createNote(noteOne)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
