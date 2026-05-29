@@ -1,6 +1,7 @@
 package ru.lama.group.test.api.note
 
 import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -83,7 +84,7 @@ class NoteTests : TestBase() {
 
     @Test
     @DisplayName("Проверка закрепления заметки")
-    fun `pinned note`(){
+    fun `pinned note`() {
         val noteOne = NoteRequestBuilder.createNoteRq(title = "NoteOne")
         val noteTwo = NoteRequestBuilder.createNoteRq(title = "NoteTwo")
         val noteThree = NoteRequestBuilder.createNoteRq(title = "NoteThree")
@@ -93,57 +94,45 @@ class NoteTests : TestBase() {
         noteSteps.createNote(noteThree)
 
         val responseBeforePin = noteSteps.getNote()
-        val indexBeforePin = responseBeforePin.indexOfFirst{it.title == "NoteOne"}
+        val indexBeforePin = responseBeforePin.indexOfFirst { it.title == "NoteOne" }
 
         Assertions.assertThat(indexBeforePin).isEqualTo(2)
 
-        val updatedNote = responseBeforePin.find{it.title == "NoteOne"}
+        val updatedNote = responseBeforePin.find { it.title == "NoteOne" }
         updatedNote!!.isPinned = true
         noteSteps.updateNote(updatedNote)
 
         val responseAfterPin = noteSteps.getNote()
-        val indexAfterPin = responseAfterPin.indexOfFirst{it.title == "NoteOne"}
+        val indexAfterPin = responseAfterPin.indexOfFirst { it.title == "NoteOne" }
 
         Assertions.assertThat(indexAfterPin).isEqualTo(0)
     }
 
     @Test
-    @DisplayName("Получение текста заметки"){
+    @DisplayName("Получение текста заметки")
+    fun `get note content`() {
         val noteOne = NoteRequestBuilder.createNoteRq()
         noteSteps.createNote(noteOne)
+        val noteTwo = noteSteps.createNote(NoteRequestBuilder.createNoteRq())
+
+        val noteTwoContent = noteTwo.preview
+        val noteTwoId = noteTwo.id
+
+        val noteTwoContentRs = noteSteps.getNoteContent(noteTwoId)
+
+        assertThat(noteTwoContent).isEqualTo(noteTwoContentRs.preview)
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

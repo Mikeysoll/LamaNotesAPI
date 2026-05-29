@@ -7,7 +7,7 @@ data class NoteContentRs(
     val id: String,
     val value: String,
     val preview: String,
-    val notifications: Notifications,
+    val notifications: List<Notifications>,
 )
 
 data class Notifications(
