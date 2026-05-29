@@ -2,14 +2,14 @@ package ru.lama.group.test.notes.api.rs
 
 import kotlin.time.Instant
 
-data class NoteContentRs(
+data class NoteContentRq(
     val id: String,
     val value: String,
     val preview: String,
-    val notifications: List<NotificationsRs>,
+    val notifications: List<NotificationsRq>,
 )
 
-data class NotificationsRs(
+data class NotificationsRq(
     val startAt: Instant,
     val text: String,
     val id: String,

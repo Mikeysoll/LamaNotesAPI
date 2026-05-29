@@ -122,6 +122,12 @@ class NoteTests : TestBase() {
 
         assertThat(noteTwoContent).isEqualTo(noteTwoContentRs.preview)
     }
+
+    @Test
+    @DisplayName("Обновление текста заметки")
+    fun `update note content`(){
+
+    }
 }
 
 
