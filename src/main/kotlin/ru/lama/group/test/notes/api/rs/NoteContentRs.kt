@@ -1,6 +1,5 @@
 package ru.lama.group.test.notes.api.rs
 
-import javax.management.Notification
 import kotlin.time.Instant
 
 data class NoteContentRs(
