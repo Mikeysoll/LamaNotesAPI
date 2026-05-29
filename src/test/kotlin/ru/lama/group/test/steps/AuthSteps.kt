@@ -1,9 +1,9 @@
-package ru.lama.group.test.notes.steps
+package ru.lama.group.test.steps
 
 import io.qameta.allure.Step
 import ru.lama.group.test.notes.api.rs.AuthRs
-import ru.lama.group.test.notes.client.AuthApiClient
-import ru.lama.group.test.notes.context.Context
+import ru.lama.group.test.client.AuthApiClient
+import ru.lama.group.test.context.Context
 
 class AuthSteps(
     private val authApiClient: AuthApiClient,

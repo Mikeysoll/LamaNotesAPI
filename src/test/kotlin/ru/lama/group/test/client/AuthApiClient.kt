@@ -1,11 +1,11 @@
-package ru.lama.group.test.notes.client
+package ru.lama.group.test.client
 
 import io.restassured.RestAssured.given
 import io.restassured.response.Response
 import ru.lama.group.test.notes.api.rq.AuthRq
 import ru.lama.group.test.notes.api.rs.AuthRs
-import ru.lama.group.test.notes.base.baseRequestSpec
-import ru.lama.group.test.notes.context.Context
+import ru.lama.group.test.base.baseRequestSpec
+import ru.lama.group.test.context.Context
 
 class AuthApiClient(
     private val context: Context

@@ -1,13 +1,13 @@
-package ru.lama.group.test.notes.base
+package ru.lama.group.test.base
 
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import ru.lama.group.test.notes.UserRequestBuilder
-import ru.lama.group.test.notes.client.AuthApiClient
-import ru.lama.group.test.notes.client.UserApiClient
-import ru.lama.group.test.notes.context.Context
-import ru.lama.group.test.notes.steps.AuthSteps
-import ru.lama.group.test.notes.steps.UserSteps
+import ru.lama.group.test.client.AuthApiClient
+import ru.lama.group.test.client.UserApiClient
+import ru.lama.group.test.context.Context
+import ru.lama.group.test.steps.AuthSteps
+import ru.lama.group.test.steps.UserSteps
 
 open class TestBase {
 

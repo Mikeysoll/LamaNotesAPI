@@ -1,12 +1,12 @@
-package ru.lama.group.test.notes.client
+package ru.lama.group.test.client
 
 import io.restassured.RestAssured.given
 import io.restassured.common.mapper.TypeRef
 import io.restassured.response.Response
 import ru.lama.group.test.notes.api.rq.NoteRq
 import ru.lama.group.test.notes.api.rs.NoteRs
-import ru.lama.group.test.notes.base.baseRequestSpec
-import ru.lama.group.test.notes.context.Context
+import ru.lama.group.test.base.baseRequestSpec
+import ru.lama.group.test.context.Context
 
 class NoteApiClient(
     private val context: Context

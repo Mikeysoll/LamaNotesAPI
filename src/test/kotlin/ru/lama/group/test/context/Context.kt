@@ -1,4 +1,4 @@
-package ru.lama.group.test.notes.context
+package ru.lama.group.test.context
 
 class Context {
     lateinit var token: String
