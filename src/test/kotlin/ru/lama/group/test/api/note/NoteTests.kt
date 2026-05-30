@@ -143,6 +143,7 @@ class NoteTests : TestBase() {
 
         val noteOneContent = noteSteps.getNoteContent(noteOneRs.id)
         val noteNewContent = "ATest" + UUID.randomUUID().toString().replace("-", "").take(10)
+        val noteNewPreview = noteNewContent.take(50)
 
         assertThat(noteOneRq.content)
             .isEqualTo(Jsoup.parse(noteOneContent.value).text())
@@ -151,6 +152,7 @@ class NoteTests : TestBase() {
             Jsoup.parse(noteOneContent.value).text(),
             noteNewContent
         )
+        noteOneContent.preview = noteNewPreview
 
         noteSteps.updateNoteContent(noteOneContent)
 
@@ -158,6 +160,8 @@ class NoteTests : TestBase() {
 
         assertThat(noteNewContent)
             .isEqualTo(Jsoup.parse(noteOneNew.value).text())
+        assertThat(noteNewPreview)
+            .isEqualTo(noteOneNew.preview)
     }
 }
 

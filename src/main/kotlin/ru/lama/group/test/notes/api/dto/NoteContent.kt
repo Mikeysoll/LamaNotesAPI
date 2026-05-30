@@ -5,7 +5,7 @@ import kotlin.time.Instant
 data class NoteContent(
     val id: String,
     var value: String,
-    val preview: String,
+    var preview: String,
     val notifications: List<Notifications>,
 )
 
