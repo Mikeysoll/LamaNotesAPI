@@ -28,12 +28,14 @@ dependencies {
     // JSON SERIALIZATION
     testImplementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.2")
 
+    // HTML PARSER
+    testImplementation("org.jsoup:jsoup:1.18.3")
+
     // ALLURE
     testImplementation("io.qameta.allure:allure-junit5:2.34.0")
 
     // JUNIT 5 PARAMS
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.3")
-
 }
 
 tasks.test {

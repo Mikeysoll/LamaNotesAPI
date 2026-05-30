@@ -25,6 +25,7 @@ class AuthTests {
         val response = authSteps.auth()
         context.token = response.token
 
-        Assertions.assertThat(response.token).isNotEmpty()
+        Assertions.assertThat(response.token)
+            .isNotEmpty()
     }
 }
