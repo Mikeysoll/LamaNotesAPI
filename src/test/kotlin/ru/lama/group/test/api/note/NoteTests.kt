@@ -12,9 +12,9 @@ import ru.lama.group.test.builders.NoteRequestBuilder
 import ru.lama.group.test.client.NoteApiClient
 import ru.lama.group.test.notes.api.constants.Colors
 import ru.lama.group.test.notes.api.constants.Types
-import ru.lama.group.test.notes.api.rs.NoteContentRq
-import ru.lama.group.test.notes.api.rs.NoteContentRs
+import ru.lama.group.test.notes.api.dto.NoteContent
 import ru.lama.group.test.steps.NoteSteps
+import java.util.UUID
 
 class NoteTests : TestBase() {
 
@@ -138,7 +138,26 @@ class NoteTests : TestBase() {
     @Test
     @DisplayName("Обновление текста заметки")
     fun `update note content`() {
-        val noteOne = NoteRequestBuilder.createNoteRq()
+        val noteOneRq = NoteRequestBuilder.createNoteRq()
+        val noteOneRs = noteSteps.createNote(noteOneRq)
+
+        val noteOneContent = noteSteps.getNoteContent(noteOneRs.id)
+        val noteNewContent = "ATest" + UUID.randomUUID().toString().replace("-", "").take(10)
+
+        assertThat(noteOneRq.content)
+            .isEqualTo(Jsoup.parse(noteOneContent.value).text())
+
+        noteOneContent.value = noteOneContent.value.replace(
+            Jsoup.parse(noteOneContent.value).text(),
+            noteNewContent
+        )
+
+        noteSteps.updateNoteContent(noteOneContent)
+
+        val noteOneNew = noteSteps.getNoteContent(noteOneRs.id)
+
+        assertThat(noteNewContent)
+            .isEqualTo(Jsoup.parse(noteOneNew.value).text())
     }
 }
 

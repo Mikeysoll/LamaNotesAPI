@@ -5,8 +5,7 @@ import io.restassured.response.Response
 import ru.lama.group.test.notes.api.rq.NoteRq
 import ru.lama.group.test.notes.api.rs.NoteRs
 import ru.lama.group.test.client.NoteApiClient
-import ru.lama.group.test.notes.api.rs.NoteContentRq
-import ru.lama.group.test.notes.api.rs.NoteContentRs
+import ru.lama.group.test.notes.api.dto.NoteContent
 
 class NoteSteps(
     private val noteApiClient: NoteApiClient,
@@ -27,12 +26,12 @@ class NoteSteps(
     }
 
     @Step("Отправка запроса GET /note/content")
-    fun getNoteContent(id: String): NoteContentRs {
+    fun getNoteContent(id: String): NoteContent {
         return noteApiClient.getNoteContent(id)
     }
 
     @Step("Отправка запроса PUT /note/content")
-    fun updateNoteContent(request: NoteContentRq): Response{
+    fun updateNoteContent(request: NoteContent): Response{
         return noteApiClient.updateNoteContent(request)
     }
 }
