@@ -3,11 +3,11 @@ package ru.lama.group.test.client
 import io.restassured.RestAssured.given
 import io.restassured.common.mapper.TypeRef
 import io.restassured.response.Response
-import ru.lama.group.test.notes.api.rq.NoteRq
-import ru.lama.group.test.notes.api.rs.NoteRs
 import ru.lama.group.test.base.baseRequestSpec
 import ru.lama.group.test.context.Context
-import ru.lama.group.test.notes.api.rs.NoteContentRs
+import ru.lama.group.test.notes.api.rq.NoteRq
+import ru.lama.group.test.notes.api.dto.NoteContent
+import ru.lama.group.test.notes.api.rs.NoteRs
 
 class NoteApiClient(
     private val context: Context
@@ -45,7 +45,7 @@ class NoteApiClient(
             .response()
     }
 
-    fun getNoteContent(id: String): NoteContentRs {
+    fun getNoteContent(id: String): NoteContent {
         return given()
             .spec(baseRequestSpec())
             .header("Authorization", "Bearer ${context.token}")
@@ -53,6 +53,17 @@ class NoteApiClient(
             .get("/note/content")
             .then()
             .extract()
-            .`as`(object : TypeRef<NoteContentRs>() {})
+            .`as`(object : TypeRef<NoteContent>() {})
+    }
+
+    fun updateNoteContent(request: NoteContent): Response {
+        return given()
+            .spec(baseRequestSpec())
+            .header("Authorization", "Bearer ${context.token}")
+            .body(request)
+            .put("/note/content")
+            .then()
+            .extract()
+            .response()
     }
 }

@@ -30,7 +30,8 @@ class UserTests {
         val request = UserRequestBuilder.createUserRq()
         val response = userSteps.createUser(request)
 
-        Assertions.assertThat(204).isEqualTo(response.statusCode)
+        Assertions.assertThat(204)
+            .isEqualTo(response.statusCode)
     }
 
     @Test
@@ -42,8 +43,10 @@ class UserTests {
 
         val response = userSteps.getUser()
 
-        Assertions.assertThat(context.login).isEqualTo(response.login)
-        Assertions.assertThat(context.name).isEqualTo(response.name)
+        Assertions.assertThat(context.login)
+            .isEqualTo(response.login)
+        Assertions.assertThat(context.name)
+            .isEqualTo(response.name)
     }
 
     @Test
@@ -62,6 +65,7 @@ class UserTests {
         context.psw = newPsw
         authSteps.auth()
 
-        Assertions.assertThat(204).isEqualTo(response.statusCode)
+        Assertions.assertThat(204)
+            .isEqualTo(response.statusCode)
     }
 }

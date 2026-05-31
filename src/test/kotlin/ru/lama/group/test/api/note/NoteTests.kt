@@ -2,6 +2,7 @@ package ru.lama.group.test.api.note
 
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
+import org.jsoup.Jsoup
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -11,7 +12,9 @@ import ru.lama.group.test.builders.NoteRequestBuilder
 import ru.lama.group.test.client.NoteApiClient
 import ru.lama.group.test.notes.api.constants.Colors
 import ru.lama.group.test.notes.api.constants.Types
+import ru.lama.group.test.notes.api.dto.NoteContent
 import ru.lama.group.test.steps.NoteSteps
+import java.util.UUID
 
 class NoteTests : TestBase() {
 
@@ -25,9 +28,12 @@ class NoteTests : TestBase() {
         val request = NoteRequestBuilder.createNoteRq(type = type)
         val notes = noteSteps.createNote(request)
 
-        Assertions.assertThat(notes.title).isEqualTo(request.title)
-        Assertions.assertThat(notes.color).isEqualTo(request.color)
-        Assertions.assertThat(notes.type).isEqualTo(request.type)
+        assertThat(notes.title)
+            .isEqualTo(request.title)
+        assertThat(notes.color)
+            .isEqualTo(request.color)
+        assertThat(notes.type)
+            .isEqualTo(request.type)
     }
 
     @Test
@@ -37,7 +43,8 @@ class NoteTests : TestBase() {
         val createdNote = noteSteps.createNote(request)
         val response = noteSteps.getNote()
 
-        Assertions.assertThat(response.find { it.title == createdNote.title }).isEqualTo(createdNote)
+        assertThat(response.find { it.title == createdNote.title })
+            .isEqualTo(createdNote)
     }
 
     @Test
@@ -55,7 +62,8 @@ class NoteTests : TestBase() {
         noteSteps.createNote(noteThree)
         response = noteSteps.getNote()
 
-        Assertions.assertThat(response.size).isEqualTo(3)
+        Assertions.assertThat(response.size)
+            .isEqualTo(3)
     }
 
     @Test
@@ -78,8 +86,10 @@ class NoteTests : TestBase() {
 
         val response = noteSteps.getNote().find { it.id == updatedNote.id }
 
-        Assertions.assertThat(response?.color).isNotEqualTo(originalNote.color)
-        Assertions.assertThat(response?.isPinned).isNotEqualTo(originalNote.isPinned)
+        Assertions.assertThat(response?.color)
+            .isNotEqualTo(originalNote.color)
+        Assertions.assertThat(response?.isPinned)
+            .isNotEqualTo(originalNote.isPinned)
     }
 
     @Test
@@ -105,28 +115,53 @@ class NoteTests : TestBase() {
         val responseAfterPin = noteSteps.getNote()
         val indexAfterPin = responseAfterPin.indexOfFirst { it.title == "NoteOne" }
 
-        Assertions.assertThat(indexAfterPin).isEqualTo(0)
+        Assertions.assertThat(indexAfterPin)
+            .isEqualTo(0)
     }
 
     @Test
     @DisplayName("Получение текста заметки")
     fun `get note content`() {
-        val noteOne = NoteRequestBuilder.createNoteRq()
-        noteSteps.createNote(noteOne)
-        val noteTwo = noteSteps.createNote(NoteRequestBuilder.createNoteRq())
+        val noteTwoRs = noteSteps.createNote(NoteRequestBuilder.createNoteRq())
+        val noteOneRq = NoteRequestBuilder.createNoteRq()
+        val noteOneRs = noteSteps.createNote(noteOneRq)
+        val noteOneContentRq = noteOneRq.content
 
-        val noteTwoContent = noteTwo.preview
-        val noteTwoId = noteTwo.id
+        val noteOneContentRs = noteSteps.getNoteContent(noteOneRs.id)
 
-        val noteTwoContentRs = noteSteps.getNoteContent(noteTwoId)
-
-        assertThat(noteTwoContent).isEqualTo(noteTwoContentRs.preview)
+        assertThat(noteOneContentRs.id)
+            .isEqualTo(noteOneRs.id)
+        assertThat(noteOneContentRq)
+            .isEqualTo(Jsoup.parse(noteOneContentRs.value).text())
     }
 
     @Test
     @DisplayName("Обновление текста заметки")
-    fun `update note content`(){
+    fun `update note content`() {
+        val noteOneRq = NoteRequestBuilder.createNoteRq()
+        val noteOneRs = noteSteps.createNote(noteOneRq)
 
+        val noteOneContent = noteSteps.getNoteContent(noteOneRs.id)
+        val noteNewContent = "ATest" + UUID.randomUUID().toString().replace("-", "").take(10)
+        val noteNewPreview = noteNewContent.take(50)
+
+        assertThat(noteOneRq.content)
+            .isEqualTo(Jsoup.parse(noteOneContent.value).text())
+
+        noteOneContent.value = noteOneContent.value.replace(
+            Jsoup.parse(noteOneContent.value).text(),
+            noteNewContent
+        )
+        noteOneContent.preview = noteNewPreview
+
+        noteSteps.updateNoteContent(noteOneContent)
+
+        val noteOneNew = noteSteps.getNoteContent(noteOneRs.id)
+
+        assertThat(noteNewContent)
+            .isEqualTo(Jsoup.parse(noteOneNew.value).text())
+        assertThat(noteNewPreview)
+            .isEqualTo(noteOneNew.preview)
     }
 }
 
