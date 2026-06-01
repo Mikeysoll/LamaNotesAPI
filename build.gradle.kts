@@ -27,8 +27,8 @@ dependencies {
     testImplementation("io.rest-assured:json-path:5.5.0")
 
     // JSON SERIALIZATION
-    implementation ("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.2")
-    testImplementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.2")
+    implementation ("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.3")
+    testImplementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.3")
 
     // HTML PARSER
     testImplementation("org.jsoup:jsoup:1.18.3")
