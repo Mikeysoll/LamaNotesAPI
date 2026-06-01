@@ -217,6 +217,12 @@ class NoteTests : TestBase() {
 
        assertThat(notesList[0].publicUrls).isNotEmpty()
     }
+
+    @Test
+    @DisplayName("Получение публичной заметки")
+    fun `get public note`(){
+
+    }
 }
 
 
