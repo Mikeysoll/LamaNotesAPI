@@ -32,12 +32,22 @@ class NoteSteps(
     }
 
     @Step("Отправка запроса PUT /note/content")
-    fun updateNoteContent(request: NoteContent): Response{
+    fun updateNoteContent(request: NoteContent): Response {
         return noteApiClient.updateNoteContent(request)
     }
 
     @Step("Отправка запроса GET /note/counter")
-    fun getNotesCount() : CountRs{
+    fun getNotesCount(): CountRs {
         return noteApiClient.getNotesCount()
+    }
+
+    @Step("Отправка запроса DELETE /note/{id}")
+    fun deleteNote(id: String): Response {
+        return noteApiClient.deleteNote(id)
+    }
+
+    @Step("Отправка запроса POST /note/{id}")
+    fun restoreNote(id: String): Response{
+        return noteApiClient.restoreNote(id)
     }
 }

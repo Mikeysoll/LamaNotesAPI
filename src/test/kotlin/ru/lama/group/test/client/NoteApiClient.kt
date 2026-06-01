@@ -9,6 +9,7 @@ import ru.lama.group.test.notes.api.rq.NoteRq
 import ru.lama.group.test.notes.api.dto.NoteContent
 import ru.lama.group.test.notes.api.rs.CountRs
 import ru.lama.group.test.notes.api.rs.NoteRs
+import java.util.ResourceBundle
 
 class NoteApiClient(
     private val context: Context
@@ -68,7 +69,7 @@ class NoteApiClient(
             .response()
     }
 
-    fun getNotesCount() : CountRs {
+    fun getNotesCount(): CountRs {
         return given()
             .spec(baseRequestSpec())
             .header("Authorization", "Bearer ${context.token}")
@@ -76,5 +77,27 @@ class NoteApiClient(
             .then()
             .extract()
             .`as`(object : TypeRef<CountRs>() {})
+    }
+
+    fun deleteNote(id: String): Response {
+        return given()
+            .spec(baseRequestSpec())
+            .header("Authorization", "Bearer ${context.token}")
+            .queryParam("id", id)
+            .delete("/note/$id")
+            .then()
+            .extract()
+            .response()
+    }
+
+    fun restoreNote(id: String) : Response {
+        return given()
+            .spec(baseRequestSpec())
+            .header("Authorization", "Bearer ${context.token}")
+            .queryParam("id", id)
+            .post("/note/$id")
+            .then()
+            .extract()
+            .response()
     }
 }
