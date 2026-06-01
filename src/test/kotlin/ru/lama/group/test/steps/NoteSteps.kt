@@ -7,6 +7,7 @@ import ru.lama.group.test.notes.api.rs.NoteRs
 import ru.lama.group.test.client.NoteApiClient
 import ru.lama.group.test.notes.api.dto.NoteContent
 import ru.lama.group.test.notes.api.rs.CountRs
+import ru.lama.group.test.notes.api.rs.PublicUrlRs
 
 class NoteSteps(
     private val noteApiClient: NoteApiClient,
@@ -54,5 +55,10 @@ class NoteSteps(
     @Step("Отправка запроса POST /note/{id}/public-url")
     fun createPublicUrl(id: String): Response {
         return noteApiClient.createPublicUrl(id)
+    }
+
+    @Step("Отправка запроса GET /note/{id}/public")
+    fun getPublicUrl(id: String): PublicUrlRs {
+        return noteApiClient.getPublicUrl(id)
     }
 }
