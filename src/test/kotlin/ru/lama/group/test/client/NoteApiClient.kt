@@ -7,6 +7,7 @@ import ru.lama.group.test.base.baseRequestSpec
 import ru.lama.group.test.context.Context
 import ru.lama.group.test.notes.api.rq.NoteRq
 import ru.lama.group.test.notes.api.dto.NoteContent
+import ru.lama.group.test.notes.api.rs.CountRs
 import ru.lama.group.test.notes.api.rs.NoteRs
 
 class NoteApiClient(
@@ -65,5 +66,15 @@ class NoteApiClient(
             .then()
             .extract()
             .response()
+    }
+
+    fun getNotesCount() : CountRs {
+        return given()
+            .spec(baseRequestSpec())
+            .header("Authorization", "Bearer ${context.token}")
+            .get("/note/counter")
+            .then()
+            .extract()
+            .`as`(object : TypeRef<CountRs>() {})
     }
 }

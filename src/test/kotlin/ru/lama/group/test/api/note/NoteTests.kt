@@ -163,6 +163,20 @@ class NoteTests : TestBase() {
         assertThat(noteNewPreview)
             .isEqualTo(noteOneNew.preview)
     }
+
+    @Test
+    @DisplayName("Получение кол-ва заметок")
+    fun `get count of notes`() {
+        val noteRsList = (0..2).map {
+            val noteRq = NoteRequestBuilder.createNoteRq()
+            noteSteps.createNote(noteRq)
+        }
+
+        val count = noteSteps.getNotesCount()
+
+        assertThat(count.count).isEqualTo(noteRsList.size)
+
+    }
 }
 
 
