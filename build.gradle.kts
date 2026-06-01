@@ -18,6 +18,7 @@ repositories {
 dependencies {
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+
     testImplementation(kotlin("test"))
     testImplementation("org.assertj:assertj-core:4.0.0-M1")
 
@@ -26,6 +27,7 @@ dependencies {
     testImplementation("io.rest-assured:json-path:5.5.0")
 
     // JSON SERIALIZATION
+    implementation ("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.2")
     testImplementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.2")
 
     // HTML PARSER

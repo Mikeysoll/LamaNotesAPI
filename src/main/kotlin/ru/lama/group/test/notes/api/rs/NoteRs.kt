@@ -1,10 +1,10 @@
 package ru.lama.group.test.notes.api.rs
 
-import kotlin.time.Instant
+import java.time.Instant
 
 data class NoteRs(
     val id: String,
-    val updatedAt: String,
+    val updatedAt: Instant,
     val title: String,
     val preview: String,
     var color: String,

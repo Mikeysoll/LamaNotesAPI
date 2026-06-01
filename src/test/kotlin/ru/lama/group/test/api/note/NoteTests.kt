@@ -12,7 +12,7 @@ import ru.lama.group.test.builders.NoteRequestBuilder
 import ru.lama.group.test.client.NoteApiClient
 import ru.lama.group.test.notes.api.constants.Colors
 import ru.lama.group.test.notes.api.constants.Types
-import ru.lama.group.test.notes.api.dto.NoteContent
+import ru.lama.group.test.notes.api.rs.PublicUrls
 import ru.lama.group.test.steps.NoteSteps
 import java.util.UUID
 
@@ -41,7 +41,7 @@ class NoteTests : TestBase() {
     fun `get note from list`() {
         val request = NoteRequestBuilder.createNoteRq()
         val createdNote = noteSteps.createNote(request)
-        val response = noteSteps.getNote()
+        val response = noteSteps.getNotes()
 
         assertThat(response.find { it.title == createdNote.title })
             .isEqualTo(createdNote)
@@ -55,12 +55,12 @@ class NoteTests : TestBase() {
         val noteThree = NoteRequestBuilder.createNoteRq()
         noteSteps.createNote(noteOne)
         noteSteps.createNote(noteTwo)
-        var response = noteSteps.getNote()
+        var response = noteSteps.getNotes()
 
         Assertions.assertThat(response.size).isEqualTo(2)
 
         noteSteps.createNote(noteThree)
-        response = noteSteps.getNote()
+        response = noteSteps.getNotes()
 
         Assertions.assertThat(response.size)
             .isEqualTo(3)
@@ -84,7 +84,7 @@ class NoteTests : TestBase() {
 
         noteSteps.updateNote(updatedNote)
 
-        val response = noteSteps.getNote().find { it.id == updatedNote.id }
+        val response = noteSteps.getNotes().find { it.id == updatedNote.id }
 
         Assertions.assertThat(response?.color)
             .isNotEqualTo(originalNote.color)
@@ -103,7 +103,7 @@ class NoteTests : TestBase() {
         noteSteps.createNote(noteTwo)
         noteSteps.createNote(noteThree)
 
-        val responseBeforePin = noteSteps.getNote()
+        val responseBeforePin = noteSteps.getNotes()
         val indexBeforePin = responseBeforePin.indexOfFirst { it.title == "NoteOne" }
 
         Assertions.assertThat(indexBeforePin).isEqualTo(2)
@@ -112,7 +112,7 @@ class NoteTests : TestBase() {
         updatedNote!!.isPinned = true
         noteSteps.updateNote(updatedNote)
 
-        val responseAfterPin = noteSteps.getNote()
+        val responseAfterPin = noteSteps.getNotes()
         val indexAfterPin = responseAfterPin.indexOfFirst { it.title == "NoteOne" }
 
         Assertions.assertThat(indexAfterPin)
@@ -182,14 +182,14 @@ class NoteTests : TestBase() {
     fun `delete note`(){
         val noteRq = NoteRequestBuilder.createNoteRq()
         val noteRs = noteSteps.createNote(noteRq)
-        var noteList = noteSteps.getNote()
+        var noteList = noteSteps.getNotes()
 
         assertThat(noteRs).isEqualTo(noteList.find { it.id == noteRs.id })
 
         noteSteps.deleteNote(noteRs.id)
-        noteList = noteSteps.getNote()
+        noteList = noteSteps.getNotes()
 
-        assertThat(noteList.find { it.id == noteRs.id }).isEqualTo(null)
+        assertThat(noteList.find { it.id == noteRs.id }).isNull()
     }
 
     @Test
@@ -199,9 +199,23 @@ class NoteTests : TestBase() {
         val noteRs = noteSteps.createNote(noteRq)
         noteSteps.deleteNote(noteRs.id)
         noteSteps.restoreNote(noteRs.id)
-        val noteList = noteSteps.getNote()
+        val noteList = noteSteps.getNotes()
 
         assertThat(noteRs.id).isEqualTo((noteList.find { it.id == noteRs.id })?.id)
+    }
+
+    @Test
+    @DisplayName("Создание публичной ссылки на заметку")
+    fun `create public url`(){
+        val noteRq = NoteRequestBuilder.createNoteRq()
+        val noteRs = noteSteps.createNote(noteRq)
+
+        assertThat(noteRs.publicUrls).isEqualTo(emptyList<PublicUrls>())
+
+        noteSteps.createPublicUrl(noteRs.id)
+        val notesList = noteSteps.getNotes()
+
+       assertThat(notesList[0].publicUrls).isNotEmpty()
     }
 }
 

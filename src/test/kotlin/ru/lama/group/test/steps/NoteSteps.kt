@@ -17,8 +17,8 @@ class NoteSteps(
     }
 
     @Step("Отправка запроса GET /note")
-    fun getNote(): List<NoteRs> {
-        return noteApiClient.getNote()
+    fun getNotes(): List<NoteRs> {
+        return noteApiClient.getNotes()
     }
 
     @Step("Отправка запроса PUT /note")
@@ -49,5 +49,10 @@ class NoteSteps(
     @Step("Отправка запроса POST /note/{id}")
     fun restoreNote(id: String): Response{
         return noteApiClient.restoreNote(id)
+    }
+
+    @Step("Отправка запроса POST /note/{id}/public-url")
+    fun createPublicUrl(id: String): Response {
+        return noteApiClient.createPublicUrl(id)
     }
 }
