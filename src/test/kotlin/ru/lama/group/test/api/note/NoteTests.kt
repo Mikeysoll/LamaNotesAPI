@@ -182,14 +182,26 @@ class NoteTests : TestBase() {
     fun `delete note`(){
         val noteRq = NoteRequestBuilder.createNoteRq()
         val noteRs = noteSteps.createNote(noteRq)
-        val noteList1 = noteSteps.getNote()
+        var noteList = noteSteps.getNote()
 
-        assertThat(noteRs).isEqualTo(noteList1.find { it.id == noteRs.id })
+        assertThat(noteRs).isEqualTo(noteList.find { it.id == noteRs.id })
 
         noteSteps.deleteNote(noteRs.id)
-        val noteList2 = noteSteps.getNote()
+        noteList = noteSteps.getNote()
 
-        assertThat(noteList2.find { it.id == noteRs.id }).isEqualTo(null)
+        assertThat(noteList.find { it.id == noteRs.id }).isEqualTo(null)
+    }
+
+    @Test
+    @DisplayName("Восстановление удаленной заметки")
+    fun `restore note`(){
+        val noteRq = NoteRequestBuilder.createNoteRq()
+        val noteRs = noteSteps.createNote(noteRq)
+        noteSteps.deleteNote(noteRs.id)
+        noteSteps.restoreNote(noteRs.id)
+        val noteList = noteSteps.getNote()
+
+        assertThat(noteRs.id).isEqualTo((noteList.find { it.id == noteRs.id })?.id)
     }
 }
 
