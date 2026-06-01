@@ -68,7 +68,7 @@ class NoteApiClient(
             .response()
     }
 
-    fun getNotesCount() : CountRs {
+    fun getNotesCount(): CountRs {
         return given()
             .spec(baseRequestSpec())
             .header("Authorization", "Bearer ${context.token}")
@@ -76,5 +76,16 @@ class NoteApiClient(
             .then()
             .extract()
             .`as`(object : TypeRef<CountRs>() {})
+    }
+
+    fun deleteNote(id: String): Response {
+        return given()
+            .spec(baseRequestSpec())
+            .header("Authorization", "Bearer ${context.token}")
+            .queryParam("id", id)
+            .delete("/note/$id")
+            .then()
+            .extract()
+            .response()
     }
 }

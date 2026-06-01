@@ -40,4 +40,9 @@ class NoteSteps(
     fun getNotesCount() : CountRs{
         return noteApiClient.getNotesCount()
     }
+
+    @Step("Отправка запроса DELETE /note/{id}")
+    fun deleteNote(id: String) : Response{
+        return noteApiClient.deleteNote(id)
+    }
 }

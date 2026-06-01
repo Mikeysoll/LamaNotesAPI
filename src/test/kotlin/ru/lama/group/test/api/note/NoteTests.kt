@@ -175,7 +175,21 @@ class NoteTests : TestBase() {
         val count = noteSteps.getNotesCount()
 
         assertThat(count.count).isEqualTo(noteRsList.size)
+    }
 
+    @Test
+    @DisplayName("Удаление заметки")
+    fun `delete note`(){
+        val noteRq = NoteRequestBuilder.createNoteRq()
+        val noteRs = noteSteps.createNote(noteRq)
+        val noteList1 = noteSteps.getNote()
+
+        assertThat(noteRs).isEqualTo(noteList1.find { it.id == noteRs.id })
+
+        noteSteps.deleteNote(noteRs.id)
+        val noteList2 = noteSteps.getNote()
+
+        assertThat(noteList2.find { it.id == noteRs.id }).isEqualTo(null)
     }
 }
 
