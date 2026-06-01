@@ -6,6 +6,7 @@ import ru.lama.group.test.notes.api.rq.NoteRq
 import ru.lama.group.test.notes.api.rs.NoteRs
 import ru.lama.group.test.client.NoteApiClient
 import ru.lama.group.test.notes.api.dto.NoteContent
+import ru.lama.group.test.notes.api.rs.CountRs
 
 class NoteSteps(
     private val noteApiClient: NoteApiClient,
@@ -33,5 +34,10 @@ class NoteSteps(
     @Step("Отправка запроса PUT /note/content")
     fun updateNoteContent(request: NoteContent): Response{
         return noteApiClient.updateNoteContent(request)
+    }
+
+    @Step("Отправка запроса GET /note/counter")
+    fun getNotesCount() : CountRs{
+        return noteApiClient.getNotesCount()
     }
 }
