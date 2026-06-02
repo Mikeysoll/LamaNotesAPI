@@ -180,7 +180,7 @@ class NoteTests : TestBase() {
 
     @Test
     @DisplayName("Удаление заметки")
-    fun `delete note`(){
+    fun `delete note`() {
         val noteRq = NoteRequestBuilder.createNoteRq()
         val noteRs = noteSteps.createNote(noteRq)
         var noteList = noteSteps.getNotes()
@@ -197,7 +197,7 @@ class NoteTests : TestBase() {
 
     @Test
     @DisplayName("Восстановление удаленной заметки")
-    fun `restore note`(){
+    fun `restore note`() {
         val noteRq = NoteRequestBuilder.createNoteRq()
         val noteRs = noteSteps.createNote(noteRq)
         noteSteps.deleteNote(noteRs.id)
@@ -209,7 +209,7 @@ class NoteTests : TestBase() {
 
     @Test
     @DisplayName("Создание публичной ссылки на заметку")
-    fun `create public url`(){
+    fun `create public url`() {
         val noteRq = NoteRequestBuilder.createNoteRq()
         val noteRs = noteSteps.createNote(noteRq)
 
@@ -219,14 +219,27 @@ class NoteTests : TestBase() {
         noteSteps.createPublicUrl(noteRs.id)
         val notesList = noteSteps.getNotes()
 
-       assertThat(notesList[0].publicUrls)
-           .isNotEmpty()
+        assertThat(notesList[0].publicUrls)
+            .isNotEmpty()
     }
 
     @Test
     @DisplayName("Получение публичной заметки")
-    fun `get public note`(){
+    fun `get public note`() {
+        val noteRq = NoteRequestBuilder.createNoteRq()
+        val noteRs = noteSteps.createNote(noteRq)
 
+        noteSteps.createPublicUrl(noteRs.id)
+        val notesList = noteSteps.getNotes()
+        val noteWithUrl = notesList.find { it.id == noteRs.id }
+
+        val publicUrls = noteWithUrl?.publicUrls
+        val publicUrlId = publicUrls?.get(0)?.id
+
+        val publicNote = noteSteps.getPublicUrl(publicUrlId)
+
+        assertThat(publicNote.title)
+            .isEqualTo(noteRs.title)
     }
 }
 
