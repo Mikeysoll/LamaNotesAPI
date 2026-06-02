@@ -174,7 +174,8 @@ class NoteTests : TestBase() {
 
         val count = noteSteps.getNotesCount()
 
-        assertThat(count.count).isEqualTo(noteRsList.size)
+        assertThat(count.count)
+            .isEqualTo(noteRsList.size)
     }
 
     @Test
@@ -184,12 +185,14 @@ class NoteTests : TestBase() {
         val noteRs = noteSteps.createNote(noteRq)
         var noteList = noteSteps.getNotes()
 
-        assertThat(noteRs).isEqualTo(noteList.find { it.id == noteRs.id })
+        assertThat(noteRs)
+            .isEqualTo(noteList.find { it.id == noteRs.id })
 
         noteSteps.deleteNote(noteRs.id)
         noteList = noteSteps.getNotes()
 
-        assertThat(noteList.find { it.id == noteRs.id }).isNull()
+        assertThat(noteList.find { it.id == noteRs.id })
+            .isNull()
     }
 
     @Test
@@ -210,12 +213,14 @@ class NoteTests : TestBase() {
         val noteRq = NoteRequestBuilder.createNoteRq()
         val noteRs = noteSteps.createNote(noteRq)
 
-        assertThat(noteRs.publicUrls).isEqualTo(emptyList<PublicUrls>())
+        assertThat(noteRs.publicUrls)
+            .isEqualTo(emptyList<PublicUrls>())
 
         noteSteps.createPublicUrl(noteRs.id)
         val notesList = noteSteps.getNotes()
 
-       assertThat(notesList[0].publicUrls).isNotEmpty()
+       assertThat(notesList[0].publicUrls)
+           .isNotEmpty()
     }
 
     @Test

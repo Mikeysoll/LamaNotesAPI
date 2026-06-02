@@ -19,10 +19,10 @@ class UserTests {
     private val authSteps = AuthSteps(AuthApiClient(context), context)
     private val authApiClient = AuthApiClient(context)
 
-    @AfterEach
+    /*@AfterEach
     fun cleanUp(){
         userSteps.deleteTestUsers()
-    }
+    }*/
 
     @Test
     @DisplayName("Создание пользователя")
