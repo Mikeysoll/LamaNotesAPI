@@ -58,7 +58,7 @@ class NoteSteps(
     }
 
     @Step("Отправка запроса GET /note/{id}/public")
-    fun getPublicUrl(id: String): PublicUrlRs {
+    fun getPublicUrl(id: String?): PublicUrlRs {
         return noteApiClient.getPublicUrl(id)
     }
 }

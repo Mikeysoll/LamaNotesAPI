@@ -10,7 +10,6 @@ import ru.lama.group.test.notes.api.dto.NoteContent
 import ru.lama.group.test.notes.api.rs.CountRs
 import ru.lama.group.test.notes.api.rs.NoteRs
 import ru.lama.group.test.notes.api.rs.PublicUrlRs
-import ru.lama.group.test.notes.api.rs.PublicUrls
 
 class NoteApiClient(
     private val context: Context
@@ -113,12 +112,12 @@ class NoteApiClient(
             .response()
     }
 
-    fun getPublicUrl(id: String): PublicUrlRs {
+    fun getPublicUrl(id: String?): PublicUrlRs {
         return given()
             .spec(baseRequestSpec())
             .header("Authorization", "Bearer ${context.token}")
             .queryParam("id", id)
-            .get("/note/{id}/public")
+            .get("/note/$id/public")
             .then()
             .extract()
             .`as`(object : TypeRef<PublicUrlRs>(){})
