@@ -14,6 +14,7 @@ import ru.lama.group.test.notes.api.constants.Colors
 import ru.lama.group.test.notes.api.constants.Types
 import ru.lama.group.test.notes.api.rs.PublicUrls
 import ru.lama.group.test.steps.NoteSteps
+import java.io.File
 import java.util.UUID
 
 class NoteTests : TestBase() {
@@ -240,6 +241,19 @@ class NoteTests : TestBase() {
 
         assertThat(publicNote.title)
             .isEqualTo(noteRs.title)
+    }
+
+    @Test
+    @DisplayName("Загрузка изображения")
+    fun `upload an image`() {
+        val noteRq = NoteRequestBuilder.createNoteRq()
+        val noteRs = noteSteps.createNote(noteRq)
+        val filePath = "src/main/resources/images/lamaTestImage.jpg"
+        val file = File(filePath)
+
+        val uploadResponse = noteSteps.uploadImage(noteRs.id, filePath)
+
+        assertThat(uploadResponse.name).isEqualTo(file.name)
     }
 }
 

@@ -3,20 +3,23 @@ package ru.lama.group.test.client
 import io.restassured.RestAssured.given
 import io.restassured.common.mapper.TypeRef
 import io.restassured.response.Response
-import ru.lama.group.test.base.baseRequestSpec
+import ru.lama.group.test.base.baseJsonRequestSpec
+import ru.lama.group.test.base.baseNotJsonRequestSpec
 import ru.lama.group.test.context.Context
 import ru.lama.group.test.notes.api.rq.NoteRq
 import ru.lama.group.test.notes.api.dto.NoteContent
 import ru.lama.group.test.notes.api.rs.CountRs
+import ru.lama.group.test.notes.api.rs.ImageRs
 import ru.lama.group.test.notes.api.rs.NoteRs
 import ru.lama.group.test.notes.api.rs.PublicUrlRs
+import java.io.File
 
 class NoteApiClient(
     private val context: Context
 ) {
     fun createNote(request: NoteRq): NoteRs {
         return given()
-            .spec(baseRequestSpec())
+            .spec(baseJsonRequestSpec())
             .header("Authorization", "Bearer ${context.token}")
             .body(request)
             .post("/note")
@@ -27,7 +30,7 @@ class NoteApiClient(
 
     fun getNotes(): List<NoteRs> {
         return given()
-            .spec(baseRequestSpec())
+            .spec(baseJsonRequestSpec())
             .header("Authorization", "Bearer ${context.token}")
             .queryParam("search", "")
             .get("/note")
@@ -38,7 +41,7 @@ class NoteApiClient(
 
     fun updateNote(updatedNote: NoteRs): Response {
         return given()
-            .spec(baseRequestSpec())
+            .spec(baseJsonRequestSpec())
             .header("Authorization", "Bearer ${context.token}")
             .body(updatedNote)
             .put("/note")
@@ -49,7 +52,7 @@ class NoteApiClient(
 
     fun getNoteContent(id: String): NoteContent {
         return given()
-            .spec(baseRequestSpec())
+            .spec(baseJsonRequestSpec())
             .header("Authorization", "Bearer ${context.token}")
             .queryParam("noteId", id)
             .get("/note/content")
@@ -60,7 +63,7 @@ class NoteApiClient(
 
     fun updateNoteContent(request: NoteContent): Response {
         return given()
-            .spec(baseRequestSpec())
+            .spec(baseJsonRequestSpec())
             .header("Authorization", "Bearer ${context.token}")
             .body(request)
             .put("/note/content")
@@ -71,7 +74,7 @@ class NoteApiClient(
 
     fun getNotesCount(): CountRs {
         return given()
-            .spec(baseRequestSpec())
+            .spec(baseJsonRequestSpec())
             .header("Authorization", "Bearer ${context.token}")
             .get("/note/counter")
             .then()
@@ -81,7 +84,7 @@ class NoteApiClient(
 
     fun deleteNote(id: String): Response {
         return given()
-            .spec(baseRequestSpec())
+            .spec(baseJsonRequestSpec())
             .header("Authorization", "Bearer ${context.token}")
             .queryParam("id", id)
             .delete("/note/$id")
@@ -92,7 +95,7 @@ class NoteApiClient(
 
     fun restoreNote(id: String): Response {
         return given()
-            .spec(baseRequestSpec())
+            .spec(baseJsonRequestSpec())
             .header("Authorization", "Bearer ${context.token}")
             .queryParam("id", id)
             .post("/note/$id")
@@ -103,7 +106,7 @@ class NoteApiClient(
 
     fun createPublicUrl(id: String): Response {
         return given()
-            .spec(baseRequestSpec())
+            .spec(baseJsonRequestSpec())
             .header("Authorization", "Bearer ${context.token}")
             .queryParam("id", id)
             .post("/note/$id/public-url")
@@ -114,12 +117,23 @@ class NoteApiClient(
 
     fun getPublicUrl(id: String?): PublicUrlRs {
         return given()
-            .spec(baseRequestSpec())
+            .spec(baseJsonRequestSpec())
             .header("Authorization", "Bearer ${context.token}")
             .queryParam("id", id)
             .get("/note/$id/public")
             .then()
             .extract()
-            .`as`(object : TypeRef<PublicUrlRs>(){})
+            .`as`(object : TypeRef<PublicUrlRs>() {})
+    }
+
+    fun uploadImage(id: String, path: String): ImageRs {
+        return given()
+            .spec(baseNotJsonRequestSpec())
+            .header("Authorization", "Bearer ${context.token}")
+            .multiPart("file", File(path))
+            .post("/note/$id/image")
+            .then()
+            .extract()
+            .`as`(object : TypeRef<ImageRs>() {})
     }
 }

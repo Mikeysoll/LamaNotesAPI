@@ -4,7 +4,7 @@ import io.restassured.RestAssured.given
 import io.restassured.response.Response
 import ru.lama.group.test.notes.api.rq.AuthRq
 import ru.lama.group.test.notes.api.rs.AuthRs
-import ru.lama.group.test.base.baseRequestSpec
+import ru.lama.group.test.base.baseJsonRequestSpec
 import ru.lama.group.test.context.Context
 
 class AuthApiClient(
@@ -13,7 +13,7 @@ class AuthApiClient(
 
     fun auth(): AuthRs {
         return given()
-            .spec(baseRequestSpec())
+            .spec(baseJsonRequestSpec())
             .queryParam("login", context.login)
             .queryParam("psw", context.psw)
             .body(AuthRq(context.login, context.psw))
@@ -25,7 +25,7 @@ class AuthApiClient(
 
     fun authError(): Response {
         return given()
-            .spec(baseRequestSpec())
+            .spec(baseJsonRequestSpec())
             .queryParam("login", context.login)
             .queryParam("psw", context.psw)
             .body(AuthRq(context.login, context.psw))
